@@ -261,15 +261,9 @@ public class Backroom {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-<<<<<<< backroom/src/backroom/Backroom.java
-        
-=======
         afficherMenu();
-        System.out.println("salut");
         System.out.println(GRENOUILLE_GAGNE);
         System.out.println(GRENOUILLE_PERDU);
         System.out.println(GRENOUILLE_MUR);
->>>>>>> backroom/src/backroom/Backroom.java
     }
 }
