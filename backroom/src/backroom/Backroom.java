@@ -33,7 +33,14 @@ public class Backroom {
      * Position y de la grenouille
      */
     static int posY = 0;
-
+    /**
+     * Ancienne position x de la grenouille
+     */
+    static int OldPosX;
+    /**
+     * Ancienne position y de la grenouille
+     */
+    static int OldPosY;
     /**
      * Tableau du niveau 1
      */
@@ -397,6 +404,11 @@ public class Backroom {
         }
         plateau.append("+");
         System.out.println(plateau);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Backroom.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -419,5 +431,19 @@ public class Backroom {
             System.out.println(oui + "\n" + GRENOUILLE_PASJOUE);
         }
 
+    }
+    static void update() {
+        if (tapeMur()) {
+            System.out.println(GRENOUILLE_MUR);
+        } else if (!estDansPlateau()) {
+            System.out.println(GRENOUILLE_ESTPERDU);
+        } else if (estArrive()) {
+            System.out.println(GRENOUILLE_GAGNE);
+        } else {
+            tabAct[OldPosX][OldPosY] = 0;
+            tabAct[posX][posY] = 1;
+            creePlateau();
+
+        }
     }
 }
