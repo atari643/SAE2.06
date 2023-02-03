@@ -6,6 +6,9 @@ package backroom;
 
 import java.awt.Font;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -216,31 +219,46 @@ public class Backroom {
     static void choixNiveau() {
         boolean jeuTermine = true;
         while (jeuTermine == true) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Backroom.class.getName()).log(Level.SEVERE, null, ex);
+            }
             afficherMenu();
             int numeroNiveau = saisirNombreIntervalle(2, 7);
             switch (numeroNiveau) {
                 case 2:
                     tabAct = tabNiv2;
+                    Initialiser();
+                    creerPlateau();
                     niveau2();
                     jeuTermine = estArrive();
                     break;
                 case 3:
                     tabAct = tabNiv3;
+                    Initialiser();
+                    creerPlateau();
                     niveau3();
                     jeuTermine = estArrive();
                     break;
                 case 4:
                     tabAct = tabNiv4;
+                    Initialiser();
+                    creerPlateau();
                     niveau4();
                     jeuTermine = estArrive();
                     break;
                 case 5:
                     tabAct = tabNiv5;
+                    Initialiser();
+                    creerPlateau();
                     niveau5();
                     jeuTermine = estArrive();
                     break;
                 case 6:
                     tabAct = tabNiv6;
+                    Initialiser();
+                    creerPlateau();
                     niveau6();
                     jeuTermine = estArrive();
                     break;
@@ -322,12 +340,13 @@ public class Backroom {
     }
 
     static void niveau2() {
-        System.out.println(tabNiv2);
-        //
+        droite();
     }
 
     static void niveau3() {
-        System.out.println(tabNiv3);
+        droite();
+        droite();
+        droite();
         //
     }
 
@@ -355,7 +374,7 @@ public class Backroom {
      */
     static boolean estArrive() {
         boolean res = false;
-        if (tabAct[posX][posY] == 2) {
+        if (tabAct[posX][posY] == 2 || tabAct[posX][posY] == 3) {
             res = true;
         }
         return res;
@@ -399,6 +418,9 @@ public class Backroom {
                             case 2:
                                 plateau.append("|(_)");
                                 break;
+                            case 3:
+                                plateau.append("|YES");
+                                break;
                             default:
                                 break;
                         }
@@ -416,9 +438,13 @@ public class Backroom {
             plateau.append("+---");
         }
         plateau.append("+");
+        try {
+            Thread.sleep(750);
+        } catch (InterruptedException ex) {
+        }
         System.out.println(plateau);
         try {
-            Thread.sleep(1000);
+            Thread.sleep(750);
         } catch (InterruptedException ex) {
         }
     }
@@ -436,39 +462,48 @@ public class Backroom {
     static void update() {
         if (tapeMur()) {
             System.out.println(GRENOUILLE_MUR);
+        } else if (estArrive()) {
+            tabAct[OldPosX][OldPosY] = 0;
+            tabAct[posX][posY] = 3;
+            creerPlateau();
+            System.out.println(GRENOUILLE_GAGNE);
         } else if (!estDansPlateau()) {
             System.out.println(GRENOUILLE_ESTPERDU);
-        } else if (estArrive()) {
-            System.out.println(GRENOUILLE_GAGNE);
         } else {
             tabAct[OldPosX][OldPosY] = 0;
             tabAct[posX][posY] = 1;
             creerPlateau();
-
         }
     }
-   
-    
+
     /**
      * Initialise les posX et posY selon où se trouve la grenouille
-     * @param tab le tableau 
+     *
+     * @param tab le tableau
      */
-    static void Initialiser(int[][] tab){
+    static void Initialiser() {
         boolean stop = false;
         int i = 0;
         int j = 0;
-        while (i< tab.length || stop == false){
-           while(j < tab.length || stop == false){
-               if (tab[i][j] == 1){
-                   posX = i;
-                   posY = j;
-                   stop = true;
-               }else{
-                   i++;
-                   j++;
-               }
-           }
-        } 
+        posX=0;
+        posY=0;
+        OldPosX=0;
+        OldPosY=0;
+        while (i < tabAct.length && stop == false) {
+            while (j < tabAct[0].length && stop == false) {
+                if (tabAct[i][j] == 1) {
+                    posX = i;
+                    posY = j;
+                    OldPosX = i;
+                    OldPosY = j;
+                    stop = true;
+                }
+                j++;
+            }
+            j = 0;
+            i++;
+
+        }
     }
 
     /**
@@ -476,6 +511,7 @@ public class Backroom {
      */
     public static void main(String[] args) {
         if (start()) {
+
             choixNiveau();
         } else {
             System.out.println(oui + "\n" + GRENOUILLE_PASJOUE);
