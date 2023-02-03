@@ -41,50 +41,52 @@ public class Backroom {
      * Ancienne position y de la grenouille
      */
     static int OldPosY;
+    
+    static int[][] tabAct;
     /**
-     * Tableau du niveau 1
-     */
-    static int[][] tabNiv6 = {
-        {0, -1, 1, -1, 0},
-        {0, -1, 0, -1, 0},
-        {0, -1, 0, -1, 0},
-        {0, -1, 0, 2, 0},
-        {0, -1, -1, -1, 0}
-    };
-    /**
-     * Tableau du niveau 1
+     * Tableau du niveau 2
      */
     static int[][] tabNiv2 = {
-        {0, -1, 1, -1, 0},
-        {0, -1, 0, -1, 0},
-        {0, -1, 0, -1, 0},
-        {0, -1, 0, 2, 0},
-        {0, -1, -1, -1, 0}
+        {-1, -1, -1, -1, -1},
+        {-1, -1, -1, -1, -1},
+        {-1, -1, 1, 2, -1},
+        {-1, -1, -1, -1, -1},
+        {-1, -1, -1, -1, -1}
     };
     /**
-     * Tableau du niveau 1
+     * Tableau du niveau 3
      */
     static int[][] tabNiv3 = {
-        {0, -1, 1, -1, 0},
-        {0, -1, 0, -1, 0},
-        {0, -1, 0, -1, 0},
-        {0, -1, 0, 2, 0},
-        {0, -1, -1, -1, 0}
+        {-1, -1, -1, -1, -1},
+        {-1, -1, -1, -1, -1},
+        {1, 0, 0, 2, -1},
+        {-1, -1, -1, -1, -1},
+        {-1, -1, -1, -1, -1}
     };
     /**
-     * Tableau du niveau 1
+     * Tableau du niveau 4
      */
     static int[][] tabNiv4 = {
-        {0, -1, 1, -1, 0},
-        {0, -1, 0, -1, 0},
-        {0, -1, 0, -1, 0},
-        {0, -1, 0, 2, 0},
-        {0, -1, -1, -1, 0}
+        {-1, -1, -1, 2, -1},
+        {-1, -1, -1, 0, -1},
+        {1, 0, 0, 0, -1},
+        {-1, -1, -1, -1, -1},
+        {-1, -1, -1, -1, -1}
     };
     /**
-     * Tableau du niveau 1
+     * Tableau du niveau 5
      */
     static int[][] tabNiv5 = {
+        {-1, -1, -1, -1, 2},
+        {-1, -1, -1, -1, 0},
+        {1, 0, 0, 0, 0},
+        {-1, -1, -1, -1, -1},
+        {-1, -1, -1, -1, -1}
+    };
+    /**
+     * Tableau du niveau 6
+     */
+    static int[][] tabNiv6 = {
         {0, -1, 1, -1, 0},
         {0, -1, 0, -1, 0},
         {0, -1, 0, -1, 0},
@@ -262,44 +264,50 @@ public class Backroom {
             return nombre;
         }
     }
-
-    /**
+/**
      * Déplace la grenouille vers le haut
      */
     static void haut() {
-        posX = posX - 1;
+        OldPosX = posX;
+        posX--;
+        update();
     }
 
     /**
      * Déplace la grenouille vers le bas
      */
     static void bas() {
-        posX = posX + 1;
+        OldPosX = posX;
+        posX++;
+        update();
     }
 
     /**
      * Déplance la grenouille vers la gauche
      */
     static void gauche() {
-        posY = posY - 1;
+        OldPosY = posY;
+        posY--;
+        update();
     }
 
     /**
      * Déplace la grenouille vers la droite
      */
-    static void droite() { //ENLEVER
-        posY = posY + 1;
+    static void droite() {
+        OldPosY = posY;
+        posY++;
+        update();
     }
 
     /**
      * Test si la grenouille se déplace dans un mur
      *
-     * @param tab plateau de jeu
      * @return true si la grenouille est dans un mur et false sinon
      */
-    static boolean tapeMur(int[][] tab) {
+    static boolean tapeMur() {
         boolean res = false;
-        if (tab[posX][posY] == -1) {
+        if (tabAct[posX][posY] == -1) {
             res = true;
         }
         return res;
@@ -335,12 +343,11 @@ public class Backroom {
     /**
      * Test si la grenouille est arrivé sur le nénuphar
      *
-     * @param tab plateau de jeu
      * @return true si elle est sur le nénuphar et false sinon
      */
-    static boolean estArrive(int[][] tab) {
+    static boolean estArrive() {
         boolean res = false;
-        if (tab[posX][posY] == 2) {
+        if (tabAct[posX][posY] == 2) {
             res = true;
         }
         return res;
@@ -349,12 +356,11 @@ public class Backroom {
     /**
      * Test si la grenouille est sur une case vide
      *
-     * @param tab plateau de jeu
      * @return true si elle est sur une case vide et false sinon
      */
-    static boolean estDansPlateau(int[][] tab) {
+    static boolean estDansPlateau() {
         boolean res = false;
-        if (tab[posX][posY] == 0) {
+        if (tabAct[posX][posY] == 0) {
             res = true;
         }
         return res;
@@ -363,17 +369,16 @@ public class Backroom {
     /**
      * Créer le plateau en fonction du tableau
      *
-     * @param tab tableau en question pour créer le plateau
      */
-    static void creerPlateau(int[][] tab) {
+    static void creerPlateau() {
         StringBuilder plateau = new StringBuilder();
-        for (int i = 0; i < tab.length; i++) {
+        for (int i = 0; i < tabAct.length; i++) {
             for (int z = 0; z < 2; z++) {
-                for (int j = 0; j < tab[0].length; j++) {
+                for (int j = 0; j < tabAct[0].length; j++) {
                     if (z == 0) {
                         plateau.append("+---");
                     } else {
-                        switch (tab[i][j]) {
+                        switch (tabAct[i][j]) {
                             case -1:
                                 plateau.append("|###");
                                 break;
@@ -399,7 +404,7 @@ public class Backroom {
                 plateau.append("\n");
             }
         }
-        for (int p = 0; p < tab.length; p++) {
+        for (int p = 0; p < tabAct.length; p++) {
             plateau.append("+---");
         }
         plateau.append("+");
