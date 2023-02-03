@@ -26,22 +26,24 @@ public class Backroom {
             + "                                                                                                                   \n";
 
     /**
-     * Position x de la grenouille
+     * Position x de la grenouille.
      */
     static int posX = 0;
     /**
-     * Position y de la grenouille
+     * Position y de la grenouille.
      */
     static int posY = 0;
     /**
-     * Ancienne position x de la grenouille
+     * Ancienne position x de la grenouille.
      */
     static int OldPosX;
     /**
-     * Ancienne position y de la grenouille
+     * Ancienne position y de la grenouille.
      */
     static int OldPosY;
-
+    /**
+     * Tableau sur lequel le personnage bouge.
+     */
     static int[][] tabAct;
     /**
      * Tableau du niveau 2
@@ -218,22 +220,27 @@ public class Backroom {
             int numeroNiveau = saisirNombreIntervalle(2, 7);
             switch (numeroNiveau) {
                 case 2:
+                    tabAct = tabNiv2;
                     niveau2();
                     jeuTermine = estArrive();
                     break;
                 case 3:
+                    tabAct = tabNiv3;
                     niveau3();
                     jeuTermine = estArrive();
                     break;
                 case 4:
+                    tabAct = tabNiv4;
                     niveau4();
                     jeuTermine = estArrive();
                     break;
                 case 5:
+                    tabAct = tabNiv5;
                     niveau5();
                     jeuTermine = estArrive();
                     break;
                 case 6:
+                    tabAct = tabNiv6;
                     niveau6();
                     jeuTermine = estArrive();
                     break;
@@ -417,7 +424,7 @@ public class Backroom {
     }
 
     /**
-     * Lance le jeu de la grenuille
+     * Lance le jeu de la grenouille
      *
      * @return true pour lancer le jeu et false sinon
      */
