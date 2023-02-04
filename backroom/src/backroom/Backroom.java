@@ -31,27 +31,28 @@ public class Backroom {
     /**
      * Position x de la grenouille.
      */
-    static int posX = 0;
+    int posX;
     /**
      * Position y de la grenouille.
      */
-    static int posY = 0;
+    int posY;
     /**
      * Ancienne position x de la grenouille.
      */
-    static int OldPosX;
+    int OldPosX;
     /**
      * Ancienne position y de la grenouille.
      */
-    static int OldPosY;
+    int OldPosY;
     /**
      * Tableau sur lequel le personnage bouge.
      */
-    static int[][] tabAct;
+    int[][] tabAct;
+
     /**
      * Tableau du niveau 2
      */
-    static int[][] tabNiv2 = {
+    final static int[][] tabNiv2 = {
         {-1, -1, -1, -1, -1},
         {-1, -1, -1, -1, -1},
         {-1, -1, 1, 2, -1},
@@ -61,7 +62,7 @@ public class Backroom {
     /**
      * Tableau du niveau 3
      */
-    static int[][] tabNiv3 = {
+    final static int[][] tabNiv3 = {
         {-1, -1, -1, -1, -1},
         {-1, -1, -1, -1, -1},
         {1, 0, 0, 2, -1},
@@ -114,11 +115,18 @@ public class Backroom {
             + " `-._//||\\/||\\\\_.-'\n"
             + "      `--'`--'";
 
+                                                                                                                                                                                                    final static String affiche = "███   ▄█ ▄███▄      ▄       ▄   ▄███▄      ▄     ▄   ▄███▄       ██▄   ██      ▄      ▄▄▄▄▄       █     ▄███▄     ▄▄▄▄▄       ███   ██   ▄█▄    █  █▀ █▄▄▄▄ ████▄ ████▄ █▀▄▀█     \n" +
+                                                                                                                                                                                                "█  █  ██ █▀   ▀      █       █  █▀   ▀      █     █  █▀   ▀      █  █  █ █      █    █     ▀▄     █     █▀   ▀   █     ▀▄     █  █  █ █  █▀ ▀▄  █▄█   █  ▄▀ █   █ █   █ █ █ █     \n" +
+                                                                                                                                                                                                "█ ▀ ▄ ██ ██▄▄    ██   █ █     █ ██▄▄    ██   █ █   █ ██▄▄        █   █ █▄▄█ ██   █ ▄  ▀▀▀▀▄       █     ██▄▄   ▄  ▀▀▀▀▄       █ ▀ ▄ █▄▄█ █   ▀  █▀▄   █▀▀▌  █   █ █   █ █ ▄ █     \n" +
+                                                                                                                                                                                                "█  ▄▀ ▐█ █▄   ▄▀ █ █  █  █    █ █▄   ▄▀ █ █  █ █   █ █▄   ▄▀     █  █  █  █ █ █  █  ▀▄▄▄▄▀        ███▄  █▄   ▄▀ ▀▄▄▄▄▀        █  ▄▀ █  █ █▄  ▄▀ █  █  █  █  ▀████ ▀████ █   █     \n" +
+                                                                                                                                                                                                "███    ▐ ▀███▀   █  █ █   █  █  ▀███▀   █  █ █ █▄ ▄█ ▀███▀       ███▀     █ █  █ █                    ▀ ▀███▀                 ███      █ ▀███▀    █     █                  █      \n" +
+                                                                                                                                                                                                "                 █   ██    █▐           █   ██  ▀▀▀                      █  █   ██                                                    █          ▀     ▀                  ▀       \n" +
+                                                                                                                                                                                                "                           ▐                                            ▀                                                            ▀                                            ";
     /**
      * Grenouille quand t'as perdu
      */
     final static String GRENOUILLE_ESTPERDU = oui + "\n"
-            + "TU T'ES PRIS POUR ZORO A TE PERDRE ? \n"
+            + "TU EST ALLE.E TROP LOIN ? \n"
             + "          .--._.--.\n"
             + "          ( O     O )\n"
             + "          /   . .   \\\n"
@@ -131,7 +139,7 @@ public class Backroom {
             + ">_       _} |  |  | {_       _<\n"
             + " /. - ~ ,_-'  .^.  `-_, ~ - .\\\n"
             + "         '-'|/   \\|`-`\n"
-            + "TU T'ES PRIS POUR ZORO A TE PERDRE ? \n";
+            + "TU AS QUITTE.E LE PLATEAU ET TU EST TOMBE.E ? \n";
 
     /**
      * Grenouille quand tu te tapes le mur
@@ -228,39 +236,34 @@ public class Backroom {
             int numeroNiveau = saisirNombreIntervalle(2, 7);
             switch (numeroNiveau) {
                 case 2:
-                    tabAct = tabNiv2;
-                    Initialiser();
-                    creerPlateau();
-                    niveau2();
-                    jeuTermine = estArrive();
+                    Backroom back2 = new Backroom(tabNiv2);
+                    back2.creerPlateau();
+                    back2.niveau2();
+                    jeuTermine = back2.estArrive();
                     break;
                 case 3:
-                    tabAct = tabNiv3;
-                    Initialiser();
-                    creerPlateau();
-                    niveau3();
-                    jeuTermine = estArrive();
+                    Backroom back3 = new Backroom(tabNiv3);
+                    back3.creerPlateau();
+                    back3.niveau3();
+                    jeuTermine = back3.estArrive();
                     break;
                 case 4:
-                    tabAct = tabNiv4;
-                    Initialiser();
-                    creerPlateau();
-                    niveau4();
-                    jeuTermine = estArrive();
+                    Backroom back4 = new Backroom(tabNiv4);
+                    back4.creerPlateau();
+                    back4.niveau4();
+                    jeuTermine = back4.estArrive();
                     break;
                 case 5:
-                    tabAct = tabNiv5;
-                    Initialiser();
-                    creerPlateau();
+                    Backroom back5 = new Backroom(tabNiv5);
+                    back5.creerPlateau();
                     niveau5();
-                    jeuTermine = estArrive();
+                    jeuTermine = back5.estArrive();
                     break;
                 case 6:
-                    tabAct = tabNiv6;
-                    Initialiser();
-                    creerPlateau();
+                    Backroom back6 = new Backroom(tabNiv6);
+                    back6.creerPlateau();
                     niveau6();
-                    jeuTermine = estArrive();
+                    jeuTermine = back6.estArrive();
                     break;
                 case 7:
                     jeuTermine = false;
@@ -293,8 +296,9 @@ public class Backroom {
     /**
      * Déplace la grenouille vers le haut
      */
-    static void haut() {
+    void haut() {
         OldPosX = posX;
+        OldPosY = posY;
         posX--;
         update();
     }
@@ -302,8 +306,9 @@ public class Backroom {
     /**
      * Déplace la grenouille vers le bas
      */
-    static void bas() {
+    void bas() {
         OldPosX = posX;
+        OldPosY = posY;
         posX++;
         update();
     }
@@ -311,7 +316,7 @@ public class Backroom {
     /**
      * Déplance la grenouille vers la gauche
      */
-    static void gauche() {
+    void gauche() {
         OldPosY = posY;
         posY--;
         update();
@@ -320,7 +325,7 @@ public class Backroom {
     /**
      * Déplace la grenouille vers la droite
      */
-    static void droite() {
+    void droite() {
         OldPosY = posY;
         posY++;
         update();
@@ -331,7 +336,7 @@ public class Backroom {
      *
      * @return true si la grenouille est dans un mur et false sinon
      */
-    static boolean tapeMur() {
+    boolean tapeMur() {
         boolean res = false;
         if (tabAct[posX][posY] == -1) {
             res = true;
@@ -339,19 +344,23 @@ public class Backroom {
         return res;
     }
 
-    static void niveau2() {
+    void niveau2() {
         droite();
     }
 
-    static void niveau3() {
+    void niveau3() {
         droite();
         droite();
         droite();
         //
     }
 
-    static void niveau4() {
-        System.out.println(tabNiv4);
+    void niveau4() {
+        droite();
+        droite();
+        droite();
+        haut();
+        haut();
         //
 
     }
@@ -372,10 +381,12 @@ public class Backroom {
      *
      * @return true si elle est sur le nénuphar et false sinon
      */
-    static boolean estArrive() {
+    boolean estArrive() {
         boolean res = false;
-        if (tabAct[posX][posY] == 2 || tabAct[posX][posY] == 3) {
-            res = true;
+        if (estDansPlateau()) {
+            if (tabAct[posX][posY] == 2 || tabAct[posX][posY] == 3) {
+                res = true;
+            }
         }
         return res;
     }
@@ -385,10 +396,12 @@ public class Backroom {
      *
      * @return true si elle est sur une case vide et false sinon
      */
-    static boolean estDansPlateau() {
+    boolean estDansPlateau() {
         boolean res = false;
-        if (tabAct[posX][posY] == 0) {
-            res = true;
+        if (posX >= 0 && posY >= 0 && posX < tabAct.length && posY < tabAct[0].length) {
+            if (tabAct[posX][posY] == 0 || tabAct[posX][posY] == 2) {
+                res = true;
+            }
         }
         return res;
     }
@@ -397,7 +410,7 @@ public class Backroom {
      * Créer le plateau en fonction du tableau
      *
      */
-    static void creerPlateau() {
+    void creerPlateau() {
         StringBuilder plateau = new StringBuilder();
         for (int i = 0; i < tabAct.length; i++) {
             for (int z = 0; z < 2; z++) {
@@ -459,36 +472,54 @@ public class Backroom {
         return demarrer;
     }
 
-    static void update() {
-        if (tapeMur()) {
-            System.out.println(GRENOUILLE_MUR);
-        } else if (estArrive()) {
-            tabAct[OldPosX][OldPosY] = 0;
-            tabAct[posX][posY] = 3;
-            creerPlateau();
-            System.out.println(GRENOUILLE_GAGNE);
-        } else if (!estDansPlateau()) {
-            System.out.println(GRENOUILLE_ESTPERDU);
+    void update() {
+        if (estDansPlateau()) {
+            if (tapeMur()) {
+                System.out.println(GRENOUILLE_MUR);
+            } else if (estArrive()) {
+                tabAct[OldPosX][OldPosY] = 0;
+                tabAct[posX][posY] = 3;
+                creerPlateau();
+                System.out.println(GRENOUILLE_GAGNE);
+            } else {
+                tabAct[OldPosX][OldPosY] = 0;
+                tabAct[posX][posY] = 1;
+                creerPlateau();
+            }
         } else {
-            tabAct[OldPosX][OldPosY] = 0;
-            tabAct[posX][posY] = 1;
-            creerPlateau();
+            try {
+                Thread.sleep(750);
+            } catch (InterruptedException ex) {
+            }
+            System.out.println(GRENOUILLE_ESTPERDU);
+            try {
+                Thread.sleep(750);
+            } catch (InterruptedException ex) {
+            }
+            System.out.println(affiche);
         }
     }
 
     /**
      * Initialise les posX et posY selon où se trouve la grenouille
      *
-     * @param tab le tableau
+     * @param plateau la matrice du niveau
      */
-    static void Initialiser() {
+    Backroom(int[][] plateau) {
         boolean stop = false;
         int i = 0;
         int j = 0;
-        posX=0;
-        posY=0;
-        OldPosX=0;
-        OldPosY=0;
+        posX = 0;
+        posY = 0;
+        OldPosX = 0;
+        OldPosY = 0;
+        int[][] tab = new int[plateau.length][plateau[0].length];
+        for (int r = 0; r < tab.length; r++) {
+            for (int n = 0; n < tab[0].length; n++) {
+                tab[r][n] = plateau[r][n];
+            }
+        }
+        tabAct = tab;
         while (i < tabAct.length && stop == false) {
             while (j < tabAct[0].length && stop == false) {
                 if (tabAct[i][j] == 1) {
@@ -511,7 +542,6 @@ public class Backroom {
      */
     public static void main(String[] args) {
         if (start()) {
-
             choixNiveau();
         } else {
             System.out.println(oui + "\n" + GRENOUILLE_PASJOUE);
