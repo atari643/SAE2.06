@@ -73,21 +73,20 @@ public class Backroom {
      * Tableau du niveau 4
      */
     static int[][] tabNiv4 = {
-        {-1, -1, -1, 2, -1},
+        {-1, -1, -1, 1, -1},
         {-1, -1, -1, 0, -1},
-        {1, 0, 0, 0, -1},
-        {-1, -1, -1, -1, -1},
-        {-1, -1, -1, -1, -1}
+        {0, 0, 0, 0, 0},
+        {0, -1, -1, -1, 0},
+        {2, -1, -1, 0, 0}
     };
     /**
      * Tableau du niveau 5
      */
     static int[][] tabNiv5 = {
-        {-1, -1, -1, -1, 2},
-        {-1, -1, -1, -1, 0},
-        {1, 0, 0, 0, 0},
-        {-1, -1, -1, -1, -1},
-        {-1, -1, -1, -1, -1}
+        {-1, 2, -1, -1, -1,-1, -1, -1, -1, -1,-1, -1, -1, -1, -1,-1, -1, -1, -1, -1,-1, -1, -1, -1, -1},
+        {-1, 0, -1, -1, -1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1, -1, -1, -1, -1},
+        {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {-1, -1, -1, -1, -1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1, -1, -1, -1, -1}
     };
     /**
      * Tableau du niveau 6
@@ -298,7 +297,6 @@ public class Backroom {
      */
     void haut() {
         OldPosX = posX;
-        OldPosY = posY;
         posX--;
         update();
     }
@@ -308,7 +306,6 @@ public class Backroom {
      */
     void bas() {
         OldPosX = posX;
-        OldPosY = posY;
         posX++;
         update();
     }
@@ -447,7 +444,7 @@ public class Backroom {
                 plateau.append("\n");
             }
         }
-        for (int p = 0; p < tabAct.length; p++) {
+        for (int p = 0; p < tabAct[0].length; p++) {
             plateau.append("+---");
         }
         plateau.append("+");
