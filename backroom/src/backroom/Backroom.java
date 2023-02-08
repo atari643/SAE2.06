@@ -4,7 +4,6 @@
  */
 package backroom;
 
-import java.awt.Font;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -92,11 +91,14 @@ public class Backroom {
      * Tableau du niveau 6
      */
     static int[][] tabNiv6 = {
-        {0, -1, 1, -1, 0},
-        {0, -1, 0, -1, 0},
-        {0, -1, 0, -1, 0},
-        {0, -1, 0, 2, 0},
-        {0, -1, -1, -1, 0}
+        {-1, -1, -1, -1, 2, 0, 0, 0, 0},
+        {-1, -1, -1, -1, -1, -1, -1, -1, 0},
+        {-1, 0, -1, 0, -1, -1, -1, -1, 0},
+        {-1, 0, -1, 0, -1, -1, -1, -1, 0},
+        {0, 0, 0, 1, 0, 0, 0, 0, 0},
+        {-1, -1, -1, 0, -1, -1, -1, -1, -1},
+        {-1, -1, -1, 0, -1, -1, -1, -1, -1},
+        {-1, -1, -1, -1, -1, -1, -1, -1, -1}
     };
 
     /**
@@ -114,13 +116,14 @@ public class Backroom {
             + " `-._//||\\/||\\\\_.-'\n"
             + "      `--'`--'";
 
-                                                                                                                                                                                                    final static String affiche = "███   ▄█ ▄███▄      ▄       ▄   ▄███▄      ▄     ▄   ▄███▄       ██▄   ██      ▄      ▄▄▄▄▄       █     ▄███▄     ▄▄▄▄▄       ███   ██   ▄█▄    █  █▀ █▄▄▄▄ ████▄ ████▄ █▀▄▀█     \n" +
-                                                                                                                                                                                                "█  █  ██ █▀   ▀      █       █  █▀   ▀      █     █  █▀   ▀      █  █  █ █      █    █     ▀▄     █     █▀   ▀   █     ▀▄     █  █  █ █  █▀ ▀▄  █▄█   █  ▄▀ █   █ █   █ █ █ █     \n" +
-                                                                                                                                                                                                "█ ▀ ▄ ██ ██▄▄    ██   █ █     █ ██▄▄    ██   █ █   █ ██▄▄        █   █ █▄▄█ ██   █ ▄  ▀▀▀▀▄       █     ██▄▄   ▄  ▀▀▀▀▄       █ ▀ ▄ █▄▄█ █   ▀  █▀▄   █▀▀▌  █   █ █   █ █ ▄ █     \n" +
-                                                                                                                                                                                                "█  ▄▀ ▐█ █▄   ▄▀ █ █  █  █    █ █▄   ▄▀ █ █  █ █   █ █▄   ▄▀     █  █  █  █ █ █  █  ▀▄▄▄▄▀        ███▄  █▄   ▄▀ ▀▄▄▄▄▀        █  ▄▀ █  █ █▄  ▄▀ █  █  █  █  ▀████ ▀████ █   █     \n" +
-                                                                                                                                                                                                "███    ▐ ▀███▀   █  █ █   █  █  ▀███▀   █  █ █ █▄ ▄█ ▀███▀       ███▀     █ █  █ █                    ▀ ▀███▀                 ███      █ ▀███▀    █     █                  █      \n" +
-                                                                                                                                                                                                "                 █   ██    █▐           █   ██  ▀▀▀                      █  █   ██                                                    █          ▀     ▀                  ▀       \n" +
-                                                                                                                                                                                                "                           ▐                                            ▀                                                            ▀                                            ";
+    final static String affiche = ""
+            + "███   ▄█ ▄███▄      ▄       ▄   ▄███▄      ▄     ▄   ▄███▄       ██▄   ██      ▄      ▄▄▄▄▄       █     ▄███▄     ▄▄▄▄▄       ███   ██   ▄█▄    █  █▀ █▄▄▄▄ ████▄ ████▄ █▀▄▀█     \n"
+            + "█  █  ██ █▀   ▀      █       █  █▀   ▀      █     █  █▀   ▀      █  █  █ █      █    █     ▀▄     █     █▀   ▀   █     ▀▄     █  █  █ █  █▀ ▀▄  █▄█   █  ▄▀ █   █ █   █ █ █ █     \n"
+            + "█ ▀ ▄ ██ ██▄▄    ██   █ █     █ ██▄▄    ██   █ █   █ ██▄▄        █   █ █▄▄█ ██   █ ▄  ▀▀▀▀▄       █     ██▄▄   ▄  ▀▀▀▀▄       █ ▀ ▄ █▄▄█ █   ▀  █▀▄   █▀▀▌  █   █ █   █ █ ▄ █     \n"
+            + "█  ▄▀ ▐█ █▄   ▄▀ █ █  █  █    █ █▄   ▄▀ █ █  █ █   █ █▄   ▄▀     █  █  █  █ █ █  █  ▀▄▄▄▄▀        ███▄  █▄   ▄▀ ▀▄▄▄▄▀        █  ▄▀ █  █ █▄  ▄▀ █  █  █  █  ▀████ ▀████ █   █     \n"
+            + "███    ▐ ▀███▀   █  █ █   █  █  ▀███▀   █  █ █ █▄ ▄█ ▀███▀       ███▀     █ █  █ █                    ▀ ▀███▀                 ███      █ ▀███▀    █     █                  █      \n"
+            + "                 █   ██    █▐           █   ██  ▀▀▀                      █  █   ██                                                    █          ▀     ▀                  ▀       \n"
+            + "                           ▐                                            ▀                                                            ▀                                            ";
     /**
      * Grenouille quand t'as perdu
      */
@@ -197,6 +200,22 @@ public class Backroom {
             + "VOUS AVEZ GAGNE! BRAVO \n";
 
     /**
+     * Grenouille quand tu manga la libellule
+     */
+    final static String GRENOUILLE_LIBELLULE = oui + "          ,-.___.-.\n"
+            + "       ,-.(|)   (|),-.\n"
+            + "       \\_*._ ' '_.* _/\n"
+            + "        /`-.`--' .-'\\\n"
+            + "   ,--./    `---'    \\,--.\n"
+            + "   \\   |(  )     (  )|   /\n"
+            + "hjw \\  | ||       || |  /\n"
+            + "`97  \\ | /|\\     /|\\ | /\n"
+            + "     /  \\-._     _,-/  \\\n"
+            + "    //| \\\\  `---'  // |\\\\\n"
+            + "   /,-.,-.\\       /,-.,-.\\\n"
+            + "  o   o   o      o   o    o";
+
+    /**
      * Affiche l'interface du menu
      */
     static void afficherMenu() {
@@ -211,7 +230,8 @@ public class Backroom {
                 + "\t (4) niveau 4 " + "\n"
                 + "\t (5) niveau 5" + "\n"
                 + "\t (6) niveau 6 " + "\n"
-                + "\t (7) quitter " + "\n"
+                + "\t (7) Visualiser " + "\n"
+                + "\t (8) quitter " + "\n"
                 + "\n"
                 + "    _____________Oooo._____________\n"
                 + "       .oooO     (   )\n"
@@ -232,7 +252,7 @@ public class Backroom {
                 Logger.getLogger(Backroom.class.getName()).log(Level.SEVERE, null, ex);
             }
             afficherMenu();
-            int numeroNiveau = saisirNombreIntervalle(2, 7);
+            int numeroNiveau = saisirNombreIntervalle(2, 8);
             switch (numeroNiveau) {
                 case 2:
                     Backroom back2 = new Backroom(tabNiv2);
@@ -265,6 +285,9 @@ public class Backroom {
                     jeuTermine = back6.estArrive();
                     break;
                 case 7:
+                    Visualiser();
+                    jeuTermine = false;
+                case 8:
                     jeuTermine = false;
                     break;
                 default:
@@ -272,6 +295,27 @@ public class Backroom {
                     break;
             }
         }
+    }
+
+    /**
+     * Permet de visualiser touts les plateaux
+     */
+    static void Visualiser() {
+        System.out.println("Plateau niveau 2");
+        Backroom back2 = new Backroom(tabNiv2);
+        back2.creerPlateau();
+        System.out.println("Plateau niveau 3");
+        Backroom back3 = new Backroom(tabNiv3);
+        back3.creerPlateau();
+        System.out.println("Plateau niveau 4");
+        Backroom back4 = new Backroom(tabNiv4);
+        back4.creerPlateau();
+        System.out.println("Plateau niveau 5");
+        Backroom back5 = new Backroom(tabNiv5);
+        back5.creerPlateau();
+        System.out.println("Plateau niveau 6");
+        Backroom back6 = new Backroom(tabNiv6);
+        back6.creerPlateau();
     }
 
     /**
@@ -297,7 +341,8 @@ public class Backroom {
      */
     void haut() {
         OldPosX = posX;
-        posX--;
+        OldPosY = posY;
+        posX = posX - 1;
         update();
     }
 
@@ -306,7 +351,8 @@ public class Backroom {
      */
     void bas() {
         OldPosX = posX;
-        posX++;
+        OldPosY = posY;
+        posX = posX + 1;
         update();
     }
 
@@ -315,7 +361,7 @@ public class Backroom {
      */
     void gauche() {
         OldPosY = posY;
-        posY--;
+        posY = posY - 1;
         update();
     }
 
@@ -324,7 +370,7 @@ public class Backroom {
      */
     void droite() {
         OldPosY = posY;
-        posY++;
+        posY = posY + 1;
         update();
     }
 
@@ -341,32 +387,52 @@ public class Backroom {
         return res;
     }
 
+    /**
+     * Niveau 2 
+     * Ecrire les déplacements ici
+     */
     void niveau2() {
         droite();
     }
 
+    /**
+     * Niveau 3 
+     * Ecrire les déplacements ici
+     */
     void niveau3() {
-        droite();
-        droite();
-        droite();
-        //
+        for (int i = 0; i < 3; i++) {
+            droite();
+        }
     }
 
+    /**
+     * Niveau 4 
+     * Ecrire les déplacements ici
+     */
     void niveau4() {
-        droite();
-        droite();
-        droite();
-        haut();
-        haut();
-        //
+        for (int i = 0; i < 3; i++) {
+            droite();
+        }
+        for (int j = 0; j < 2; j++) {
+            haut();
+
+        }
 
     }
 
+        /**
+     * Niveau 5
+     * Ecrire les déplacements ici
+     */
     static void niveau5() {
         System.out.println(tabNiv5);
         //
     }
 
+    /**
+     * Niveau 6
+     * Ecrire les déplacements ici
+     */
     static void niveau6() {
         System.out.println(tabNiv6);
         //
@@ -396,9 +462,7 @@ public class Backroom {
     boolean estDansPlateau() {
         boolean res = false;
         if (posX >= 0 && posY >= 0 && posX < tabAct.length && posY < tabAct[0].length) {
-            if (tabAct[posX][posY] == 0 || tabAct[posX][posY] == 2) {
-                res = true;
-            }
+            res = true;
         }
         return res;
     }
@@ -466,8 +530,8 @@ public class Backroom {
      *
      * @return true pour lancer le jeu et false sinon
      */
-    static boolean start() { //ENELEVER
-        boolean demarrer = true;
+    static boolean start() {
+        boolean demarrer = false;
         return demarrer;
     }
 
@@ -475,6 +539,7 @@ public class Backroom {
         if (estDansPlateau()) {
             if (tapeMur()) {
                 System.out.println(GRENOUILLE_MUR);
+                System.exit(0);
             } else if (estArrive()) {
                 tabAct[OldPosX][OldPosY] = 0;
                 tabAct[posX][posY] = 3;
@@ -496,6 +561,7 @@ public class Backroom {
             } catch (InterruptedException ex) {
             }
             System.out.println(affiche);
+            System.exit(0);
         }
     }
 
