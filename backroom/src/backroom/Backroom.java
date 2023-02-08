@@ -4,7 +4,6 @@
  */
 package backroom;
 
-import java.awt.Font;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -83,21 +82,24 @@ public class Backroom {
      * Tableau du niveau 5
      */
     static int[][] tabNiv5 = {
-        {-1, -1, -1, -1, 2},
-        {-1, -1, -1, -1, 0},
-        {1, 0, 0, 0, 0},
         {-1, -1, -1, -1, -1},
-        {-1, -1, -1, -1, -1}
+        {-1, -1, -1, -1, -1},
+        {1, 0, 0, 0, 0},
+        {-1, -1, -1, -1, 0},
+        {-1, -1, -1, -1, 2}
     };
     /**
      * Tableau du niveau 6
      */
     static int[][] tabNiv6 = {
-        {0, -1, 1, -1, 0},
-        {0, -1, 0, -1, 0},
-        {0, -1, 0, -1, 0},
-        {0, -1, 0, 2, 0},
-        {0, -1, -1, -1, 0}
+        {-1, -1, -1, -1, 2, 0, 0, 0, 0},
+        {-1, -1, -1, -1, -1, -1, -1, -1, 0},
+        {-1, 0, -1, 0, -1, -1, -1, -1, 0},
+        {-1, 0, -1, 0, -1, -1, -1, -1, 0},
+        {0, 0, 0, 1, 0, 0, 0, 0, 0},
+        {-1, -1, -1, 0, -1, -1, -1, -1, -1},
+        {-1, -1, -1, 0, -1, -1, -1, -1, -1},
+        {-1, -1, -1, -1, -1, -1, -1, -1, -1}
     };
 
     /**
@@ -115,13 +117,14 @@ public class Backroom {
             + " `-._//||\\/||\\\\_.-'\n"
             + "      `--'`--'";
 
-                                                                                                                                                                                                    final static String affiche = "███   ▄█ ▄███▄      ▄       ▄   ▄███▄      ▄     ▄   ▄███▄       ██▄   ██      ▄      ▄▄▄▄▄       █     ▄███▄     ▄▄▄▄▄       ███   ██   ▄█▄    █  █▀ █▄▄▄▄ ████▄ ████▄ █▀▄▀█     \n" +
-                                                                                                                                                                                                "█  █  ██ █▀   ▀      █       █  █▀   ▀      █     █  █▀   ▀      █  █  █ █      █    █     ▀▄     █     █▀   ▀   █     ▀▄     █  █  █ █  █▀ ▀▄  █▄█   █  ▄▀ █   █ █   █ █ █ █     \n" +
-                                                                                                                                                                                                "█ ▀ ▄ ██ ██▄▄    ██   █ █     █ ██▄▄    ██   █ █   █ ██▄▄        █   █ █▄▄█ ██   █ ▄  ▀▀▀▀▄       █     ██▄▄   ▄  ▀▀▀▀▄       █ ▀ ▄ █▄▄█ █   ▀  █▀▄   █▀▀▌  █   █ █   █ █ ▄ █     \n" +
-                                                                                                                                                                                                "█  ▄▀ ▐█ █▄   ▄▀ █ █  █  █    █ █▄   ▄▀ █ █  █ █   █ █▄   ▄▀     █  █  █  █ █ █  █  ▀▄▄▄▄▀        ███▄  █▄   ▄▀ ▀▄▄▄▄▀        █  ▄▀ █  █ █▄  ▄▀ █  █  █  █  ▀████ ▀████ █   █     \n" +
-                                                                                                                                                                                                "███    ▐ ▀███▀   █  █ █   █  █  ▀███▀   █  █ █ █▄ ▄█ ▀███▀       ███▀     █ █  █ █                    ▀ ▀███▀                 ███      █ ▀███▀    █     █                  █      \n" +
-                                                                                                                                                                                                "                 █   ██    █▐           █   ██  ▀▀▀                      █  █   ██                                                    █          ▀     ▀                  ▀       \n" +
-                                                                                                                                                                                                "                           ▐                                            ▀                                                            ▀                                            ";
+    final static String affiche = ""
+            + "███   ▄█ ▄███▄      ▄       ▄   ▄███▄      ▄     ▄   ▄███▄       ██▄   ██      ▄      ▄▄▄▄▄       █     ▄███▄     ▄▄▄▄▄       ███   ██   ▄█▄    █  █▀ █▄▄▄▄ ████▄ ████▄ █▀▄▀█     \n"
+            + "█  █  ██ █▀   ▀      █       █  █▀   ▀      █     █  █▀   ▀      █  █  █ █      █    █     ▀▄     █     █▀   ▀   █     ▀▄     █  █  █ █  █▀ ▀▄  █▄█   █  ▄▀ █   █ █   █ █ █ █     \n"
+            + "█ ▀ ▄ ██ ██▄▄    ██   █ █     █ ██▄▄    ██   █ █   █ ██▄▄        █   █ █▄▄█ ██   █ ▄  ▀▀▀▀▄       █     ██▄▄   ▄  ▀▀▀▀▄       █ ▀ ▄ █▄▄█ █   ▀  █▀▄   █▀▀▌  █   █ █   █ █ ▄ █     \n"
+            + "█  ▄▀ ▐█ █▄   ▄▀ █ █  █  █    █ █▄   ▄▀ █ █  █ █   █ █▄   ▄▀     █  █  █  █ █ █  █  ▀▄▄▄▄▀        ███▄  █▄   ▄▀ ▀▄▄▄▄▀        █  ▄▀ █  █ █▄  ▄▀ █  █  █  █  ▀████ ▀████ █   █     \n"
+            + "███    ▐ ▀███▀   █  █ █   █  █  ▀███▀   █  █ █ █▄ ▄█ ▀███▀       ███▀     █ █  █ █                    ▀ ▀███▀                 ███      █ ▀███▀    █     █                  █      \n"
+            + "                 █   ██    █▐           █   ██  ▀▀▀                      █  █   ██                                                    █          ▀     ▀                  ▀       \n"
+            + "                           ▐                                            ▀                                                            ▀                                            ";
     /**
      * Grenouille quand t'as perdu
      */
@@ -350,7 +353,7 @@ public class Backroom {
 
     void niveau3() {
         droite();
-        droite();
+        gauche();
         droite();
         //
     }
@@ -359,7 +362,6 @@ public class Backroom {
         droite();
         droite();
         droite();
-        haut();
         haut();
         //
 
@@ -399,9 +401,7 @@ public class Backroom {
     boolean estDansPlateau() {
         boolean res = false;
         if (posX >= 0 && posY >= 0 && posX < tabAct.length && posY < tabAct[0].length) {
-            if (tabAct[posX][posY] == 0 || tabAct[posX][posY] == 2) {
-                res = true;
-            }
+            res = true;
         }
         return res;
     }
@@ -447,7 +447,7 @@ public class Backroom {
                 plateau.append("\n");
             }
         }
-        for (int p = 0; p < tabAct.length; p++) {
+        for (int p = 0; p < tabAct[0].length; p++) {
             plateau.append("+---");
         }
         plateau.append("+");
@@ -476,6 +476,7 @@ public class Backroom {
         if (estDansPlateau()) {
             if (tapeMur()) {
                 System.out.println(GRENOUILLE_MUR);
+                System.exit(0);
             } else if (estArrive()) {
                 tabAct[OldPosX][OldPosY] = 0;
                 tabAct[posX][posY] = 3;
@@ -497,6 +498,7 @@ public class Backroom {
             } catch (InterruptedException ex) {
             }
             System.out.println(affiche);
+            System.exit(0);
         }
     }
 
