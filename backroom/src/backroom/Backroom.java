@@ -256,8 +256,8 @@ public class Backroom {
      */
     static void afficherMenu() {
         System.out.println("            ,-.___.-.\n"
-            + "         ,-.(|)   (|),-.\n"
-            + "         \\_*._ ' '_.* _/\n"
+                + "         ,-.(|)   (|),-.\n"
+                + "         \\_*._ ' '_.* _/\n"
                 + "    ______oOOo____oOOo___________\n"
                 + "\n"
                 + "              \n"
@@ -272,14 +272,15 @@ public class Backroom {
                 + "\n"
                 + "    ______________________________\n"
                 + "       /  \\-._     _,-/  \\\n"
-            + "      //| \\\\  `---'  // |\\\\\n"
-            + "     /,-.,-.\\       /,-.,-.\\\n"
-            + "    o   o   o      o   o    o");
+                + "      //| \\\\  `---'  // |\\\\\n"
+                + "     /,-.,-.\\       /,-.,-.\\\n"
+                + "    o   o   o      o   o    o");
     }
     static int niveau = 0;
 
     /**
-     * Permet de choisir une des fonctionnalités parmi les différents niveaux et de visualiser les indices
+     * Permet de choisir une des fonctionnalités parmi les différents niveaux et
+     * de visualiser les indices
      */
     static void choixNiveau() {
         boolean jeuTermine = true;
@@ -397,7 +398,7 @@ public class Backroom {
         ajouteMouv(0);
         update();
     }
-    
+
     /**
      * Déplace la grenouille vers le bas
      */
@@ -510,7 +511,7 @@ public class Backroom {
     void niveau6() {
         for (int i = 0; i < 5; i++) {
             droite();
-            
+
         }
         for (int y = 0; y < 4; y++) {
             haut();
@@ -561,6 +562,7 @@ public class Backroom {
         return res;
     }
     static int time = 750;
+
     /**
      * Créer le plateau en fonction du tableau
      *
@@ -684,6 +686,7 @@ public class Backroom {
         System.out.println(plateau);
         attendre();
     }
+    static boolean libellule = false;
 
     /**
      * Lance le jeu de la grenouille
@@ -696,42 +699,37 @@ public class Backroom {
     }
 
     /**
-     * Mets à jour tous les délacements dans le tableau et d'afficher les plateaux
+     * Mets à jour tous les délacements dans le tableau et d'afficher les
+     * plateaux
      */
     void update() {
-        boolean jeuFin = false;
-        if (estDansPlateau() && !jeuFin) {
-            if (tapeMur()) {
-                System.out.println(GRENOUILLE_MUR);
-                System.exit(0);
-            } else if (estArrive()) {
-                if(libellule){
-                    attendre();
-                    System.out.println(GRENOUILLE_LIBELLULE);
-                    attendre();
-                }
-                tabAct[OldPosX][OldPosY] = 0;
-                tabAct[posX][posY] = 3;
-                creerPlateau();
-                jeuFin = true;
-            } else {
-                if(tabAct[posX][posY] == 8){
-                    libellule = true;
-                }
-                tabAct[OldPosX][OldPosY] = 0;
-                tabAct[posX][posY] = 1;
-                if (niveau == 6) {
-                    creerPlateauNiveau6();
-                } else {
+        if (!estRond()) {
+            boolean jeuFin = false;
+            if (estDansPlateau() && !jeuFin) {
+                if (tapeMur()) {
+                    System.out.println(GRENOUILLE_MUR);
+                    System.exit(0);
+                } else if (estArrive()) {
+                    if (libellule) {
+                        attendre();
+                        System.out.println(GRENOUILLE_LIBELLULE);
+                        attendre();
+                    }
+                    tabAct[OldPosX][OldPosY] = 0;
+                    tabAct[posX][posY] = 3;
                     creerPlateau();
                     jeuFin = true;
                 } else {
+                    if (tabAct[posX][posY] == 8) {
+                        libellule = true;
+                    }
                     tabAct[OldPosX][OldPosY] = 0;
                     tabAct[posX][posY] = 1;
                     if (niveau == 6) {
                         creerPlateauNiveau6();
                     } else {
                         creerPlateau();
+                        jeuFin = true;
                     }
                 }
             } else {
@@ -763,8 +761,9 @@ public class Backroom {
 
     /**
      * Test si l'entier passé en paramètre se trouve dans le tableau tabMouv
+     *
      * @param a
-     * @return 
+     * @return
      */
     boolean existe(int a) {
         boolean res = false;
@@ -778,7 +777,8 @@ public class Backroom {
 
     /**
      * Permet d'ajouter un mouvement (int) dans le tableau tabMouv
-     * @param a 
+     *
+     * @param a
      */
     void ajouteMouv(int a) {
         decalageDroite();
@@ -787,7 +787,8 @@ public class Backroom {
 
     /**
      * Test si la grenouille tourne en rond
-     * @return 
+     *
+     * @return
      */
     boolean estRond() {//boolean pour stop
         boolean res = false;
@@ -834,12 +835,13 @@ public class Backroom {
         }
     }
 
-    public static void attendre(){
+    public static void attendre() {
         try {
-                Thread.sleep(time);
-            } catch (InterruptedException ex) {
-            }
+            Thread.sleep(time);
+        } catch (InterruptedException ex) {
+        }
     }
+
     /**
      * @param args the command line arguments
      */
