@@ -104,7 +104,7 @@ public class Backroom {
     /**
      * Grenouille quand tu joues pas
      */
-    final static String GRENOUILLE_PASJOUE = oui + "easter eggs 1/6 \n" + "\n" 
+    final static String GRENOUILLE_PASJOUE = oui + "easter eggs 1/6 \n" + "\n"
             + "TU JOUES PAS \n"
             + "    /     \\\n"
             + "      _(I)(I)_\n"
@@ -142,7 +142,7 @@ public class Backroom {
             + ">_       _} |  |  | {_       _<\n"
             + " /. - ~ ,_-'  .^.  `-_, ~ - .\\\n"
             + "         '-'|/   \\|`-`\n"
-            + "TU AS QUITTE.E LE PLATEAU ET TU EST TOMBE.E ? \n";
+            + "TU AS QUITTE(E) LE PLATEAU ET TU ES TOMBE(E) ? \n";
 
     /**
      * Grenouille quand tu te tapes le mur
@@ -204,7 +204,7 @@ public class Backroom {
      * Message perdu
      */
     final static String PERDU = oui + "easter eggs 2/6 \n" + "\n"
-            +"$$$$$$$\\  $$$$$$$$\\ $$$$$$$\\  $$$$$$$\\  $$\\   $$\\ \n"
+            + "$$$$$$$\\  $$$$$$$$\\ $$$$$$$\\  $$$$$$$\\  $$\\   $$\\ \n"
             + "$$  __$$\\ $$  _____|$$  __$$\\ $$  __$$\\ $$ |  $$ |\n"
             + "$$ |  $$ |$$ |      $$ |  $$ |$$ |  $$ |$$ |  $$ |\n"
             + "$$$$$$$  |$$$$$\\    $$$$$$$  |$$ |  $$ |$$ |  $$ |\n"
@@ -219,7 +219,7 @@ public class Backroom {
     /**
      * Grenouille quand tu manga la libellule
      */
-    final static String GRENOUILLE_LIBELLULE = oui + "easter eggs  5/6 \n" +"\n"
+    final static String GRENOUILLE_LIBELLULE = oui + "easter eggs  5/6 \n" + "\n"
             + "          ,-.___.-.\n"
             + "       ,-.(|)   (|),-.\n"
             + "       \\_*._ ' '_.* _/\n"
@@ -384,6 +384,7 @@ public class Backroom {
      */
     void gauche() {
         OldPosY = posY;
+        OldPosX = posX;
         posY = posY - 1;
         update();
     }
@@ -393,6 +394,7 @@ public class Backroom {
      */
     void droite() {
         OldPosY = posY;
+        OldPosX = posX;
         posY = posY + 1;
         update();
     }
@@ -430,12 +432,14 @@ public class Backroom {
      * Niveau 4 Ecrire les déplacements ici
      */
     void niveau4() {
-        for (int i = 0; i < 3; i++) {
-            droite();
+        for (int i = 0; i < 2; i++) {
+            bas();
         }
-        for (int j = 0; j < 2; j++) {
-            haut();
-
+        for (int j = 0; j < 3; j++) {
+            gauche();
+        }
+        for (int k = 0; k < 2; k++) {
+            bas();
         }
 
     }
@@ -443,15 +447,20 @@ public class Backroom {
     /**
      * Niveau 5 Ecrire les déplacements ici
      */
-    static void niveau5() {
-        System.out.println(tabNiv5);
-        //
+    void niveau5() {
+        
+        while(tabAct[posX][posY-1] == 0){
+            gauche();
+        }
+        haut();
+        haut();
+         
     }
 
     /**
      * Niveau 6 Ecrire les déplacements ici
      */
-    static void niveau6() {
+    void niveau6() {
         System.out.println(tabNiv6);
         //
 
