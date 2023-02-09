@@ -257,6 +257,7 @@ public class Backroom {
                 + "         \\ (     (_/\n"
                 + "          \\_)");
     }
+    static int niveau = 0;
 
     /**
      * Fonction principal du jeu_Aventure
@@ -270,6 +271,7 @@ public class Backroom {
                 Logger.getLogger(Backroom.class.getName()).log(Level.SEVERE, null, ex);
             }
             afficherMenu();
+            niveau = 0;
             int numeroNiveau = saisirNombreIntervalle(2, 8);
             switch (numeroNiveau) {
                 case 2:
@@ -302,9 +304,9 @@ public class Backroom {
                     break;
                 case 6:
                     Backroom back6 = new Backroom(tabNiv6);
-                    back6.creerPlateau();
+                    niveau = 6;
+                    back6.creerPlateauNiveau6();
                     back6.niveau6();
-                    back6.afficheFin();
                     jeuTermine = back6.estArrive();
                     break;
                 case 7:
@@ -461,7 +463,15 @@ public class Backroom {
      * Niveau 6 Ecrire les déplacements ici
      */
     void niveau6() {
-        System.out.println(tabNiv6);
+        for(int i = 0; i<5; i++){
+            droite();
+        }
+        for(int y=0; y<4; y++){
+            haut();
+        }
+        for(int j = 0; j<4; j++){
+            gauche();
+        }
         //
 
     }
@@ -561,6 +571,81 @@ public class Backroom {
         }
     }
 
+    void creerPlateauNiveau6() {
+        StringBuilder plateau = new StringBuilder();
+        int zoonL = posX;
+        int zoonU = posY;
+        int zoonR = posX + 2;
+        int zoonD = posY + 2;
+        if (posX >= 2) {
+            zoonL = posX - 2;
+        }else{
+            zoonL= posX + (0-posX);
+        }
+        if (posY >= 2) {
+            zoonU = posY - 2;
+        }else{
+            zoonU= posY + (0-posY);
+        }
+        if (posX + 2 >= tabAct.length) {
+            zoonR = tabAct.length;
+        }
+        if (posY + 2 >= tabAct[0].length) {
+            zoonD = tabAct[0].length;
+        }
+
+        for (int i = zoonL; i < zoonR; i++) {
+            for (int z = 0; z < 2; z++) {
+                for (int j = zoonU; j < zoonD; j++) {
+                    if (z == 0) {
+                        plateau.append("+---");
+                    } else {
+                        switch (tabAct[i][j]) {
+                            case -1:
+                                plateau.append("|###");
+                                break;
+                            case 0:
+                                plateau.append("|   ");
+                                break;
+                            case 1:
+                                plateau.append("|moi");
+                                break;
+                            case 2:
+                                plateau.append("|(_)");
+                                break;
+                            case 3:
+                                plateau.append("|YES");
+                                break;
+                            case 8:
+                                plateau.append("|`*" + '\u00E9');
+                            default:
+                                break;
+                        }
+                    }
+                }
+                if (z == 0) {
+                    plateau.append("+");
+                } else {
+                    plateau.append("|");
+                }
+                plateau.append("\n");
+            }
+        }
+        for (int p = zoonU; p < zoonD; p++) {
+            plateau.append("+---");
+        }
+        plateau.append("+");
+        try {
+            Thread.sleep(750);
+        } catch (InterruptedException ex) {
+        }
+        System.out.println(plateau);
+        try {
+            Thread.sleep(750);
+        } catch (InterruptedException ex) {
+        }
+    }
+
     /**
      * Lance le jeu de la grenouille
      *
@@ -585,7 +670,11 @@ public class Backroom {
             } else {
                 tabAct[OldPosX][OldPosY] = 0;
                 tabAct[posX][posY] = 1;
-                creerPlateau();
+                if (niveau == 6) {
+                    creerPlateauNiveau6();
+                } else {
+                    creerPlateau();
+                }
             }
         } else {
             try {
