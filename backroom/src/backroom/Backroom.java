@@ -129,7 +129,7 @@ public class Backroom {
      * Grenouille quand t'as perdu
      */
     final static String GRENOUILLE_ESTPERDU = oui + "easter eggs  4/6 \n" + "\n"
-            + "TU EST ALLE.E TROP LOIN ? \n"
+            + "TU ES ALLE.E TROP LOIN ? \n"
             + "          .--._.--.\n"
             + "          ( O     O )\n"
             + "          /   . .   \\\n"
@@ -307,6 +307,7 @@ public class Backroom {
                     niveau = 6;
                     back6.creerPlateauNiveau6();
                     back6.niveau6();
+                    back6.afficheFin();
                     jeuTermine = back6.estArrive();
                     break;
                 case 7:
@@ -338,9 +339,6 @@ public class Backroom {
         System.out.println("Plateau niveau 5");
         Backroom back5 = new Backroom(tabNiv5);
         back5.creerPlateau();
-        System.out.println("Plateau niveau 6");
-        Backroom back6 = new Backroom(tabNiv6);
-        back6.creerPlateau();
     }
 
     /**
