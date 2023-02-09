@@ -48,6 +48,8 @@ public class Backroom {
      */
     int[][] tabAct;
 
+    int[] tabMouv = new int[4];
+
     /**
      * Tableau du niveau 2
      */
@@ -233,6 +235,22 @@ public class Backroom {
             + "   /,-.,-.\\       /,-.,-.\\\n"
             + "  o   o   o      o   o    o";
 
+    final static String GRENOUILLE_ROND = oui + "easter eggs 6/6\n" + "\n"
+            + "         o  o   o  o\n"
+            + "         |\\/ \\^/ \\/|\n"
+            + "         |,-------.|\n"
+            + "       ,-.(|)   (|),-.\n"
+            + "       \\_*._ ' '_.* _/\n"
+            + "        /`-.`--' .-'\\\n"
+            + "   ,--./    `---'    \\,--.\n"
+            + "   \\   |( )       ( )|   /\n"
+            + "hjw \\  ||M\\d8888b /M||  /\n"
+            + "`97  \\ |  ###MMMMA   | /\n"
+            + "     /  \\-vMM8888y,-/  \\\n"
+            + "    //| \\\\ QMyWWy  // |\\\\\n"
+            + "   /,-.,-.\\       /,-.,-.\\\n"
+            + "  o   o   o      o   o    o";
+
     /**
      * Affiche l'interface du menu
      */
@@ -249,7 +267,8 @@ public class Backroom {
                 + "\t (5) niveau 5" + "\n"
                 + "\t (6) niveau 6 " + "\n"
                 + "\t (7) Visualiser " + "\n"
-                + "\t (8) quitter " + "\n"
+                + "\t (8) Indice " + "\n"
+                + "\t (9) quitter " + "\n"
                 + "\n"
                 + "    _____________Oooo._____________\n"
                 + "       .oooO     (   )\n"
@@ -272,7 +291,7 @@ public class Backroom {
             }
             afficherMenu();
             niveau = 0;
-            int numeroNiveau = saisirNombreIntervalle(2, 8);
+            int numeroNiveau = saisirNombreIntervalle(2, 9);
             switch (numeroNiveau) {
                 case 2:
                     Backroom back2 = new Backroom(tabNiv2);
@@ -314,6 +333,14 @@ public class Backroom {
                     Visualiser();
                     jeuTermine = false;
                 case 8:
+                    System.out.println("Indice easter eaggs 1 : ");
+                    System.out.println("Indice easter eaggs 2 : ");
+                    System.out.println("Indice easter eaggs 3 : ");
+                    System.out.println("Indice easter eaggs 4 : ");
+                    System.out.println("Indice easter eaggs 5 : ");
+                    System.out.println("Indice easter eaggs 6 : ");
+                    jeuTermine = false;
+                case 9:
                     jeuTermine = false;
                     break;
                 default:
@@ -366,6 +393,7 @@ public class Backroom {
         OldPosX = posX;
         OldPosY = posY;
         posX = posX - 1;
+        ajouteMouv(0);
         update();
     }
 
@@ -376,6 +404,7 @@ public class Backroom {
         OldPosX = posX;
         OldPosY = posY;
         posX = posX + 1;
+        ajouteMouv(1);
         update();
     }
 
@@ -386,6 +415,7 @@ public class Backroom {
         OldPosY = posY;
         OldPosX = posX;
         posY = posY - 1;
+        ajouteMouv(2);
         update();
     }
 
@@ -396,7 +426,9 @@ public class Backroom {
         OldPosY = posY;
         OldPosX = posX;
         posY = posY + 1;
+        ajouteMouv(3);
         update();
+
     }
 
     /**
@@ -423,7 +455,7 @@ public class Backroom {
      * Niveau 3 Ecrire les déplacements ici
      */
     void niveau3() {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
             droite();
         }
     }
@@ -432,6 +464,7 @@ public class Backroom {
      * Niveau 4 Ecrire les déplacements ici
      */
     void niveau4() {
+        /*
         for (int i = 0; i < 2; i++) {
             bas();
         }
@@ -440,38 +473,41 @@ public class Backroom {
         }
         for (int k = 0; k < 2; k++) {
             bas();
-        }
-
+        }*/
+        bas();
+        bas();
+        haut();
+        bas();
+        gauche();
+        droite();
     }
 
     /**
      * Niveau 5 Ecrire les déplacements ici
      */
     void niveau5() {
-        
-        while(tabAct[posX][posY-1] == 0){
+
+        while (tabAct[posX][posY - 1] == 0) {
             gauche();
         }
         haut();
         haut();
-         
+
     }
 
     /**
      * Niveau 6 Ecrire les déplacements ici
      */
     void niveau6() {
-        for(int i = 0; i<5; i++){
+        for (int i = 0; i < 5; i++) {
             droite();
         }
-        for(int y=0; y<4; y++){
+        for (int y = 0; y < 4; y++) {
             haut();
         }
-        for(int j = 0; j<4; j++){
+        for (int j = 0; j < 4; j++) {
             gauche();
         }
-        //
-
     }
 
     /**
@@ -489,13 +525,17 @@ public class Backroom {
         return res;
     }
 
+    /**
+     * Message de fin en fonction du déroulement de la partie
+     */
     void afficheFin() {
         if (estArrive()) {
             System.out.println(GRENOUILLE_GAGNE);
-        } else {
+        } else if (estRond()) {
+            System.out.println(GRENOUILLE_ROND);
+        } else if (!estArrive() && niveau != 6) {
             System.out.println(PERDU);
         }
-
     }
 
     /**
@@ -569,6 +609,9 @@ public class Backroom {
         }
     }
 
+    /**
+     * Permet de crée un plateau pour le niveau 6
+     */
     void creerPlateauNiveau6() {
         StringBuilder plateau = new StringBuilder();
         int zoonL = posX;
@@ -577,13 +620,13 @@ public class Backroom {
         int zoonD = posY + 2;
         if (posX >= 2) {
             zoonL = posX - 2;
-        }else{
-            zoonL= posX + (0-posX);
+        } else {
+            zoonL = posX + (0 - posX);
         }
         if (posY >= 2) {
             zoonU = posY - 2;
-        }else{
-            zoonU= posY + (0-posY);
+        } else {
+            zoonU = posY + (0 - posY);
         }
         if (posX + 2 >= tabAct.length) {
             zoonR = tabAct.length;
@@ -654,39 +697,91 @@ public class Backroom {
         return demarrer;
     }
 
+    /**
+     * Mets à jour tous les délacements dans le tableau et d'afficher les plateaux
+     */
     void update() {
-        boolean jeuFin = false;
-        if (estDansPlateau() && !jeuFin) {
-            if (tapeMur()) {
-                System.out.println(GRENOUILLE_MUR);
-                System.exit(0);
-            } else if (estArrive()) {
-                tabAct[OldPosX][OldPosY] = 0;
-                tabAct[posX][posY] = 3;
-                creerPlateau();
-                jeuFin = true;
-            } else {
-                tabAct[OldPosX][OldPosY] = 0;
-                tabAct[posX][posY] = 1;
-                if (niveau == 6) {
-                    creerPlateauNiveau6();
-                } else {
+        if (!estRond()) {
+            boolean jeuFin = false;
+            if (estDansPlateau() && !jeuFin) {
+                if (tapeMur()) {
+                    System.out.println(GRENOUILLE_MUR);
+                    System.exit(0);
+                } else if (estArrive()) {
+                    tabAct[OldPosX][OldPosY] = 0;
+                    tabAct[posX][posY] = 3;
                     creerPlateau();
+                    jeuFin = true;
+                } else {
+                    tabAct[OldPosX][OldPosY] = 0;
+                    tabAct[posX][posY] = 1;
+                    if (niveau == 6) {
+                        creerPlateauNiveau6();
+                    } else {
+                        creerPlateau();
+                    }
                 }
+            } else {
+                try {
+                    Thread.sleep(750);
+                } catch (InterruptedException ex) {
+                }
+                System.out.println(GRENOUILLE_ESTPERDU);
+                try {
+                    Thread.sleep(750);
+                } catch (InterruptedException ex) {
+                }
+                System.out.println(affiche);
+                System.exit(0);
             }
-        } else {
-            try {
-                Thread.sleep(750);
-            } catch (InterruptedException ex) {
-            }
-            System.out.println(GRENOUILLE_ESTPERDU);
-            try {
-                Thread.sleep(750);
-            } catch (InterruptedException ex) {
-            }
-            System.out.println(affiche);
-            System.exit(0);
         }
+
+        //estRond();
+    }
+
+    /**
+     * Décale vers la droite tous les élements du tableau tabMouv
+     */
+    void decalageDroite() {
+        for (int i = tabMouv.length - 1; i > 0; i--) {
+            tabMouv[i] = tabMouv[i - 1];
+        }
+    }
+
+    /**
+     * Test si l'entier passé en paramètre se trouve dans le tableau tabMouv
+     * @param a
+     * @return 
+     */
+    boolean existe(int a) {
+        boolean res = false;
+        for (int i = 0; i < tabMouv.length; i++) {
+            if (tabMouv[i] == a) {
+                res = true;
+            }
+        }
+        return res;
+    }
+
+    /**
+     * Permet d'ajouter un mouvement (int) dans le tableau tabMouv
+     * @param a 
+     */
+    void ajouteMouv(int a) {
+        decalageDroite();
+        tabMouv[0] = a;
+    }
+
+    /**
+     * Test si la grenouille tourne en rond
+     * @return 
+     */
+    boolean estRond() {//boolean pour stop
+        boolean res = false;
+        if (tabMouv[0] == 3 && tabMouv[1] == 2 && tabMouv[2] == 1 && tabMouv[3] == 0) {
+            res = true;
+        }
+        return res;
     }
 
     /**
