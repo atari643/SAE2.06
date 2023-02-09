@@ -82,10 +82,10 @@ public class Backroom {
      * Tableau du niveau 5
      */
     static int[][] tabNiv5 = {
-        {-1, 2, -1, -1, -1,-1, -1, -1, -1, -1,-1, -1, -1, -1, -1,-1, -1, -1, -1, -1,-1, -1, -1, -1, -1},
-        {-1, 0, -1, -1, -1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1, -1, -1, -1, -1},
+        {-1, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+        {-1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
         {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {-1, -1, -1, -1, -1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1, -1, -1, -1, -1}
+        {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
     };
     /**
      * Tableau du niveau 6
@@ -104,7 +104,8 @@ public class Backroom {
     /**
      * Grenouille quand tu joues pas
      */
-    final static String GRENOUILLE_PASJOUE = "TU JOUES PAS \n"
+    final static String GRENOUILLE_PASJOUE = oui + "easter eggs 1/6 \n" + "\n"
+            + "TU JOUES PAS \n"
             + "    /     \\\n"
             + "      _(I)(I)_\n"
             + "     ( _ .. _ )\n"
@@ -127,7 +128,7 @@ public class Backroom {
     /**
      * Grenouille quand t'as perdu
      */
-    final static String GRENOUILLE_ESTPERDU = oui + "\n"
+    final static String GRENOUILLE_ESTPERDU = oui + "easter eggs  4/6 \n" + "\n"
             + "TU EST ALLE.E TROP LOIN ? \n"
             + "          .--._.--.\n"
             + "          ( O     O )\n"
@@ -141,12 +142,12 @@ public class Backroom {
             + ">_       _} |  |  | {_       _<\n"
             + " /. - ~ ,_-'  .^.  `-_, ~ - .\\\n"
             + "         '-'|/   \\|`-`\n"
-            + "TU AS QUITTE.E LE PLATEAU ET TU EST TOMBE.E ? \n";
+            + "TU AS QUITTE(E) LE PLATEAU ET TU ES TOMBE(E) ? \n";
 
     /**
      * Grenouille quand tu te tapes le mur
      */
-    final static String GRENOUILLE_MUR = oui + "\n"
+    final static String GRENOUILLE_MUR = oui + "easter eggs  3/6 \n" + "\n"
             + "EH BEN ALORS, FAUT PAS SE PRENDRE LES MURS \n"
             + "            _____________________\n"
             + "            |###################|\n"
@@ -200,9 +201,26 @@ public class Backroom {
             + "VOUS AVEZ GAGNE! BRAVO \n";
 
     /**
+     * Message perdu
+     */
+    final static String PERDU = oui + "easter eggs 2/6 \n" + "\n"
+            + "$$$$$$$\\  $$$$$$$$\\ $$$$$$$\\  $$$$$$$\\  $$\\   $$\\ \n"
+            + "$$  __$$\\ $$  _____|$$  __$$\\ $$  __$$\\ $$ |  $$ |\n"
+            + "$$ |  $$ |$$ |      $$ |  $$ |$$ |  $$ |$$ |  $$ |\n"
+            + "$$$$$$$  |$$$$$\\    $$$$$$$  |$$ |  $$ |$$ |  $$ |\n"
+            + "$$  ____/ $$  __|   $$  __$$< $$ |  $$ |$$ |  $$ |\n"
+            + "$$ |      $$ |      $$ |  $$ |$$ |  $$ |$$ |  $$ |\n"
+            + "$$ |      $$$$$$$$\\ $$ |  $$ |$$$$$$$  |\\$$$$$$  |\n"
+            + "\\__|      \\________|\\__|  \\__|\\_______/  \\______/ \n"
+            + "                                                  \n"
+            + "                                                  \n"
+            + "                                                  ";
+
+    /**
      * Grenouille quand tu manga la libellule
      */
-    final static String GRENOUILLE_LIBELLULE = oui + "          ,-.___.-.\n"
+    final static String GRENOUILLE_LIBELLULE = oui + "easter eggs  5/6 \n" + "\n"
+            + "          ,-.___.-.\n"
             + "       ,-.(|)   (|),-.\n"
             + "       \\_*._ ' '_.* _/\n"
             + "        /`-.`--' .-'\\\n"
@@ -258,30 +276,35 @@ public class Backroom {
                     Backroom back2 = new Backroom(tabNiv2);
                     back2.creerPlateau();
                     back2.niveau2();
+                    back2.afficheFin();
                     jeuTermine = back2.estArrive();
                     break;
                 case 3:
                     Backroom back3 = new Backroom(tabNiv3);
                     back3.creerPlateau();
                     back3.niveau3();
+                    back3.afficheFin();
                     jeuTermine = back3.estArrive();
                     break;
                 case 4:
                     Backroom back4 = new Backroom(tabNiv4);
                     back4.creerPlateau();
                     back4.niveau4();
+                    back4.afficheFin();
                     jeuTermine = back4.estArrive();
                     break;
                 case 5:
                     Backroom back5 = new Backroom(tabNiv5);
                     back5.creerPlateau();
-                    niveau5();
+                    back5.niveau5();
+                    back5.afficheFin();
                     jeuTermine = back5.estArrive();
                     break;
                 case 6:
                     Backroom back6 = new Backroom(tabNiv6);
                     back6.creerPlateau();
-                    niveau6();
+                    back6.niveau6();
+                    back6.afficheFin();
                     jeuTermine = back6.estArrive();
                     break;
                 case 7:
@@ -361,6 +384,7 @@ public class Backroom {
      */
     void gauche() {
         OldPosY = posY;
+        OldPosX = posX;
         posY = posY - 1;
         update();
     }
@@ -370,6 +394,7 @@ public class Backroom {
      */
     void droite() {
         OldPosY = posY;
+        OldPosX = posX;
         posY = posY + 1;
         update();
     }
@@ -388,52 +413,54 @@ public class Backroom {
     }
 
     /**
-     * Niveau 2 
-     * Ecrire les déplacements ici
+     * Niveau 2 Ecrire les déplacements ici
      */
     void niveau2() {
         droite();
     }
 
     /**
-     * Niveau 3 
-     * Ecrire les déplacements ici
+     * Niveau 3 Ecrire les déplacements ici
      */
     void niveau3() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             droite();
         }
     }
 
     /**
-     * Niveau 4 
-     * Ecrire les déplacements ici
+     * Niveau 4 Ecrire les déplacements ici
      */
     void niveau4() {
-        for (int i = 0; i < 3; i++) {
-            droite();
+        for (int i = 0; i < 2; i++) {
+            bas();
         }
-        for (int j = 0; j < 2; j++) {
-            haut();
-
+        for (int j = 0; j < 3; j++) {
+            gauche();
+        }
+        for (int k = 0; k < 2; k++) {
+            bas();
         }
 
-    }
-
-        /**
-     * Niveau 5
-     * Ecrire les déplacements ici
-     */
-    static void niveau5() {
-        System.out.println(tabNiv5);
-        //
     }
 
     /**
-     * Niveau 6
-     * Ecrire les déplacements ici
+     * Niveau 5 Ecrire les déplacements ici
      */
-    static void niveau6() {
+    void niveau5() {
+        
+        while(tabAct[posX][posY-1] == 0){
+            gauche();
+        }
+        haut();
+        haut();
+         
+    }
+
+    /**
+     * Niveau 6 Ecrire les déplacements ici
+     */
+    void niveau6() {
         System.out.println(tabNiv6);
         //
 
@@ -452,6 +479,15 @@ public class Backroom {
             }
         }
         return res;
+    }
+
+    void afficheFin() {
+        if (estArrive()) {
+            System.out.println(GRENOUILLE_GAGNE);
+        } else {
+            System.out.println(PERDU);
+        }
+
     }
 
     /**
@@ -531,12 +567,13 @@ public class Backroom {
      * @return true pour lancer le jeu et false sinon
      */
     static boolean start() {
-        boolean demarrer = false;
+        boolean demarrer = true;
         return demarrer;
     }
 
     void update() {
-        if (estDansPlateau()) {
+        boolean jeuFin = false;
+        if (estDansPlateau() && !jeuFin) {
             if (tapeMur()) {
                 System.out.println(GRENOUILLE_MUR);
                 System.exit(0);
@@ -544,7 +581,7 @@ public class Backroom {
                 tabAct[OldPosX][OldPosY] = 0;
                 tabAct[posX][posY] = 3;
                 creerPlateau();
-                System.out.println(GRENOUILLE_GAGNE);
+                jeuFin = true;
             } else {
                 tabAct[OldPosX][OldPosY] = 0;
                 tabAct[posX][posY] = 1;
@@ -609,7 +646,7 @@ public class Backroom {
         if (start()) {
             choixNiveau();
         } else {
-            System.out.println(oui + "\n" + GRENOUILLE_PASJOUE);
+            System.out.println(GRENOUILLE_PASJOUE);
         }
 
     }
