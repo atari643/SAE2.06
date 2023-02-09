@@ -297,6 +297,7 @@ public class Backroom {
                     break;
                 case 5:
                     Backroom back5 = new Backroom(tabNiv5);
+                    niveau = 5;
                     back5.creerPlateau();
                     back5.niveau5();
                     back5.afficheFin();
@@ -368,7 +369,7 @@ public class Backroom {
         posX = posX - 1;
         update();
     }
-
+    
     /**
      * Déplace la grenouille vers le bas
      */
@@ -423,7 +424,7 @@ public class Backroom {
      * Niveau 3 Ecrire les déplacements ici
      */
     void niveau3() {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
             droite();
         }
     }
@@ -448,7 +449,6 @@ public class Backroom {
      * Niveau 5 Ecrire les déplacements ici
      */
     void niveau5() {
-        
         while(tabAct[posX][posY-1] == 0){
             gauche();
         }
@@ -463,12 +463,13 @@ public class Backroom {
     void niveau6() {
         for(int i = 0; i<5; i++){
             droite();
+            
         }
         for(int y=0; y<4; y++){
             haut();
         }
         for(int j = 0; j<4; j++){
-            gauche();
+            droite();
         }
         //
 
@@ -510,7 +511,7 @@ public class Backroom {
         }
         return res;
     }
-
+    static int time = 750;
     /**
      * Créer le plateau en fonction du tableau
      *
@@ -540,7 +541,7 @@ public class Backroom {
                                 plateau.append("|YES");
                                 break;
                             case 8:
-                                plateau.append("|`*" + '\u00E9');
+                                plateau.append("|`*\u00b4");
                             default:
                                 break;
                         }
@@ -558,17 +559,24 @@ public class Backroom {
             plateau.append("+---");
         }
         plateau.append("+");
+        if(niveau==5){
+            time=250;
+        }else{
+            time=750;
+        }
         try {
-            Thread.sleep(750);
+            Thread.sleep(time);
         } catch (InterruptedException ex) {
         }
         System.out.println(plateau);
         try {
-            Thread.sleep(750);
+            Thread.sleep(time);
         } catch (InterruptedException ex) {
         }
     }
-
+    /**
+     * Fonction qui affiche le plateau du niveau 6 
+     */
     void creerPlateauNiveau6() {
         StringBuilder plateau = new StringBuilder();
         int zoonL = posX;
@@ -634,12 +642,12 @@ public class Backroom {
         }
         plateau.append("+");
         try {
-            Thread.sleep(750);
+            Thread.sleep(500);
         } catch (InterruptedException ex) {
         }
         System.out.println(plateau);
         try {
-            Thread.sleep(750);
+            Thread.sleep(500);
         } catch (InterruptedException ex) {
         }
     }
@@ -676,12 +684,12 @@ public class Backroom {
             }
         } else {
             try {
-                Thread.sleep(750);
+                Thread.sleep(time);
             } catch (InterruptedException ex) {
             }
             System.out.println(GRENOUILLE_ESTPERDU);
             try {
-                Thread.sleep(750);
+                Thread.sleep(time);
             } catch (InterruptedException ex) {
             }
             System.out.println(affiche);
