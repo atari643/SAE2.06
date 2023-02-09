@@ -47,7 +47,12 @@ public class Backroom {
      * Tableau sur lequel le personnage bouge.
      */
     int[][] tabAct;
-
+    
+    static int time = 750;
+    /**
+     * Bonus de la lubulule
+     */
+    boolean libellule = false;
     /**
      * Tableau du niveau 2
      */
@@ -226,8 +231,8 @@ public class Backroom {
             + "        /`-.`--' .-'\\\n"
             + "   ,--./    `---'    \\,--.\n"
             + "   \\   |(  )     (  )|   /\n"
-            + "hjw \\  | ||       || |  /\n"
-            + "`97  \\ | /|\\     /|\\ | /\n"
+            + "    \\  | ||       || |  /\n"
+            + "     \\ | /|\\     /|\\ | /\n"
             + "     /  \\-._     _,-/  \\\n"
             + "    //| \\\\  `---'  // |\\\\\n"
             + "   /,-.,-.\\       /,-.,-.\\\n"
@@ -237,10 +242,10 @@ public class Backroom {
      * Affiche l'interface du menu
      */
     static void afficherMenu() {
-        System.out.println("           \\\\\\||||||////\n"
-                + "            \\\\  ~ ~  //\n"
-                + "             (  @ @  )\n"
-                + "    ______ oOOo-(_)-oOOo___________\n"
+        System.out.println("            ,-.___.-.\n"
+            + "         ,-.(|)   (|),-.\n"
+            + "         \\_*._ ' '_.* _/\n"
+                + "    ______oOOo____oOOo___________\n"
                 + "\n"
                 + "              \n"
                 + "\t (2) niveau 2 " + "\n"
@@ -251,11 +256,11 @@ public class Backroom {
                 + "\t (7) Visualiser " + "\n"
                 + "\t (8) quitter " + "\n"
                 + "\n"
-                + "    _____________Oooo._____________\n"
-                + "       .oooO     (   )\n"
-                + "        (   )     ) /\n"
-                + "         \\ (     (_/\n"
-                + "          \\_)");
+                + "    ______________________________\n"
+                + "       /  \\-._     _,-/  \\\n"
+            + "      //| \\\\  `---'  // |\\\\\n"
+            + "     /,-.,-.\\       /,-.,-.\\\n"
+            + "    o   o   o      o   o    o");
     }
     static int niveau = 0;
 
@@ -435,7 +440,15 @@ public class Backroom {
         for (int i = 0; i < 2; i++) {
             bas();
         }
-        for (int j = 0; j < 3; j++) {
+        droite();
+        bas();
+        bas();
+        gauche();
+        droite();
+        haut();
+        haut();
+        
+        for (int j = 0; j < 4; j++) {
             gauche();
         }
         for (int k = 0; k < 2; k++) {
@@ -540,7 +553,7 @@ public class Backroom {
                                 plateau.append("|YES");
                                 break;
                             case 8:
-                                plateau.append("|`*" + '\u00E9');
+                                plateau.append("|`*\u00b4");
                             default:
                                 break;
                         }
@@ -558,15 +571,9 @@ public class Backroom {
             plateau.append("+---");
         }
         plateau.append("+");
-        try {
-            Thread.sleep(750);
-        } catch (InterruptedException ex) {
-        }
+        attendre();
         System.out.println(plateau);
-        try {
-            Thread.sleep(750);
-        } catch (InterruptedException ex) {
-        }
+        attendre();
     }
 
     void creerPlateauNiveau6() {
@@ -633,15 +640,9 @@ public class Backroom {
             plateau.append("+---");
         }
         plateau.append("+");
-        try {
-            Thread.sleep(750);
-        } catch (InterruptedException ex) {
-        }
+        attendre();
         System.out.println(plateau);
-        try {
-            Thread.sleep(750);
-        } catch (InterruptedException ex) {
-        }
+        attendre();
     }
 
     /**
@@ -661,11 +662,19 @@ public class Backroom {
                 System.out.println(GRENOUILLE_MUR);
                 System.exit(0);
             } else if (estArrive()) {
+                if(libellule){
+                    attendre();
+                    System.out.println(GRENOUILLE_LIBELLULE);
+                    attendre();
+                }
                 tabAct[OldPosX][OldPosY] = 0;
                 tabAct[posX][posY] = 3;
                 creerPlateau();
                 jeuFin = true;
             } else {
+                if(tabAct[posX][posY] == 8){
+                    libellule = true;
+                }
                 tabAct[OldPosX][OldPosY] = 0;
                 tabAct[posX][posY] = 1;
                 if (niveau == 6) {
@@ -675,15 +684,9 @@ public class Backroom {
                 }
             }
         } else {
-            try {
-                Thread.sleep(750);
-            } catch (InterruptedException ex) {
-            }
+            attendre();
             System.out.println(GRENOUILLE_ESTPERDU);
-            try {
-                Thread.sleep(750);
-            } catch (InterruptedException ex) {
-            }
+            attendre();
             System.out.println(affiche);
             System.exit(0);
         }
@@ -694,7 +697,7 @@ public class Backroom {
      *
      * @param plateau la matrice du niveau
      */
-    Backroom(int[][] plateau) {
+    public Backroom(int[][] plateau) {
         boolean stop = false;
         int i = 0;
         int j = 0;
@@ -726,6 +729,12 @@ public class Backroom {
         }
     }
 
+    public static void attendre(){
+        try {
+                Thread.sleep(time);
+            } catch (InterruptedException ex) {
+            }
+    }
     /**
      * @param args the command line arguments
      */
