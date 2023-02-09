@@ -104,7 +104,7 @@ public class Backroom {
     };
 
     /**
-     * Grenouille quand tu joues pas
+     * Grenouille quand tu ne joues pas
      */
     final static String GRENOUILLE_PASJOUE = oui + "easter eggs 1/6 \n" + "\n"
             + "TU JOUES PAS \n"
@@ -219,7 +219,7 @@ public class Backroom {
             + "                                                  ";
 
     /**
-     * Grenouille quand tu manga la libellule
+     * Grenouille quand tu manges la libellule
      */
     final static String GRENOUILLE_LIBELLULE = oui + "easter eggs  5/6 \n" + "\n"
             + "          ,-.___.-.\n"
@@ -279,7 +279,7 @@ public class Backroom {
     static int niveau = 0;
 
     /**
-     * Fonction principal du jeu_Aventure
+     * Permet de choisir une des fonctionnalités parmi les différents niveaux et de visualiser les indices
      */
     static void choixNiveau() {
         boolean jeuTermine = true;
@@ -351,7 +351,7 @@ public class Backroom {
     }
 
     /**
-     * Permet de visualiser touts les plateaux
+     * Permet de visualiser tous les plateaux
      */
     static void Visualiser() {
         System.out.println("Plateau niveau 2");
@@ -373,7 +373,7 @@ public class Backroom {
      *
      * @param min jeu numéro 1
      * @param max boutton quitter
-     * @return le numéro saisie pour le jeu ou quitter
+     * @return le numéro saisi pour le jeu ou quitter
      */
     static int saisirNombreIntervalle(int min, int max) {
         System.out.println("Saisir un nombre entre " + min + " et " + max);
@@ -409,7 +409,7 @@ public class Backroom {
     }
 
     /**
-     * Déplance la grenouille vers la gauche
+     * Déplace la grenouille vers la gauche
      */
     void gauche() {
         OldPosY = posY;
@@ -511,7 +511,7 @@ public class Backroom {
     }
 
     /**
-     * Test si la grenouille est arrivé sur le nénuphar
+     * Teste si la grenouille est arrivée sur le nénuphar
      *
      * @return true si elle est sur le nénuphar et false sinon
      */
