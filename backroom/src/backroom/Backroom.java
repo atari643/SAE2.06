@@ -82,10 +82,10 @@ public class Backroom {
      * Tableau du niveau 5
      */
     static int[][] tabNiv5 = {
-        {-1, 2, -1, -1, -1,-1, -1, -1, -1, -1,-1, -1, -1, -1, -1,-1, -1, -1, -1, -1,-1, -1, -1, -1, -1},
-        {-1, 0, -1, -1, -1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1, -1, -1, -1, -1},
+        {-1, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+        {-1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
         {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {-1, -1, -1, -1, -1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1, -1, -1, -1, -1}
+        {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
     };
     /**
      * Tableau du niveau 6
@@ -128,7 +128,7 @@ public class Backroom {
      * Grenouille quand t'as perdu
      */
     final static String GRENOUILLE_ESTPERDU = oui + "\n"
-            + "TU EST ALLE.E TROP LOIN ? \n"
+            + "TU ES ALLE.E TROP LOIN ? \n"
             + "          .--._.--.\n"
             + "          ( O     O )\n"
             + "          /   . .   \\\n"
@@ -141,7 +141,7 @@ public class Backroom {
             + ">_       _} |  |  | {_       _<\n"
             + " /. - ~ ,_-'  .^.  `-_, ~ - .\\\n"
             + "         '-'|/   \\|`-`\n"
-            + "TU AS QUITTE.E LE PLATEAU ET TU EST TOMBE.E ? \n";
+            + "TU AS QUITTE.E LE PLATEAU ET TU ES TOMBE.E ? \n";
 
     /**
      * Grenouille quand tu te tapes le mur
@@ -239,6 +239,7 @@ public class Backroom {
                 + "         \\ (     (_/\n"
                 + "          \\_)");
     }
+    static int niveau = 0;
 
     /**
      * Fonction principal du jeu_Aventure
@@ -252,6 +253,7 @@ public class Backroom {
                 Logger.getLogger(Backroom.class.getName()).log(Level.SEVERE, null, ex);
             }
             afficherMenu();
+            niveau = 0;
             int numeroNiveau = saisirNombreIntervalle(2, 8);
             switch (numeroNiveau) {
                 case 2:
@@ -280,8 +282,9 @@ public class Backroom {
                     break;
                 case 6:
                     Backroom back6 = new Backroom(tabNiv6);
-                    back6.creerPlateau();
-                    niveau6();
+                    niveau = 6;
+                    back6.creerPlateauNiveau6();
+                    back6.niveau6();
                     jeuTermine = back6.estArrive();
                     break;
                 case 7:
@@ -361,6 +364,7 @@ public class Backroom {
      */
     void gauche() {
         OldPosY = posY;
+        OldPosX = posX;
         posY = posY - 1;
         update();
     }
@@ -388,16 +392,14 @@ public class Backroom {
     }
 
     /**
-     * Niveau 2 
-     * Ecrire les déplacements ici
+     * Niveau 2 Ecrire les déplacements ici
      */
     void niveau2() {
         droite();
     }
 
     /**
-     * Niveau 3 
-     * Ecrire les déplacements ici
+     * Niveau 3 Ecrire les déplacements ici
      */
     void niveau3() {
         for (int i = 0; i < 3; i++) {
@@ -406,8 +408,7 @@ public class Backroom {
     }
 
     /**
-     * Niveau 4 
-     * Ecrire les déplacements ici
+     * Niveau 4 Ecrire les déplacements ici
      */
     void niveau4() {
         for (int i = 0; i < 3; i++) {
@@ -420,9 +421,8 @@ public class Backroom {
 
     }
 
-        /**
-     * Niveau 5
-     * Ecrire les déplacements ici
+    /**
+     * Niveau 5 Ecrire les déplacements ici
      */
     static void niveau5() {
         System.out.println(tabNiv5);
@@ -430,11 +430,18 @@ public class Backroom {
     }
 
     /**
-     * Niveau 6
-     * Ecrire les déplacements ici
+     * Niveau 6 Ecrire les déplacements ici
      */
-    static void niveau6() {
-        System.out.println(tabNiv6);
+    void niveau6() {
+        for(int i = 0; i<5; i++){
+            droite();
+        }
+        for(int y=0; y<4; y++){
+            haut();
+        }
+        for(int j = 0; j<4; j++){
+            gauche();
+        }
         //
 
     }
@@ -525,13 +532,88 @@ public class Backroom {
         }
     }
 
+    void creerPlateauNiveau6() {
+        StringBuilder plateau = new StringBuilder();
+        int zoonL = posX;
+        int zoonU = posY;
+        int zoonR = posX + 2;
+        int zoonD = posY + 2;
+        if (posX >= 2) {
+            zoonL = posX - 2;
+        }else{
+            zoonL= posX + (0-posX);
+        }
+        if (posY >= 2) {
+            zoonU = posY - 2;
+        }else{
+            zoonU= posY + (0-posY);
+        }
+        if (posX + 2 >= tabAct.length) {
+            zoonR = tabAct.length;
+        }
+        if (posY + 2 >= tabAct[0].length) {
+            zoonD = tabAct[0].length;
+        }
+
+        for (int i = zoonL; i < zoonR; i++) {
+            for (int z = 0; z < 2; z++) {
+                for (int j = zoonU; j < zoonD; j++) {
+                    if (z == 0) {
+                        plateau.append("+---");
+                    } else {
+                        switch (tabAct[i][j]) {
+                            case -1:
+                                plateau.append("|###");
+                                break;
+                            case 0:
+                                plateau.append("|   ");
+                                break;
+                            case 1:
+                                plateau.append("|moi");
+                                break;
+                            case 2:
+                                plateau.append("|(_)");
+                                break;
+                            case 3:
+                                plateau.append("|YES");
+                                break;
+                            case 8:
+                                plateau.append("|`*" + '\u00E9');
+                            default:
+                                break;
+                        }
+                    }
+                }
+                if (z == 0) {
+                    plateau.append("+");
+                } else {
+                    plateau.append("|");
+                }
+                plateau.append("\n");
+            }
+        }
+        for (int p = zoonU; p < zoonD; p++) {
+            plateau.append("+---");
+        }
+        plateau.append("+");
+        try {
+            Thread.sleep(750);
+        } catch (InterruptedException ex) {
+        }
+        System.out.println(plateau);
+        try {
+            Thread.sleep(750);
+        } catch (InterruptedException ex) {
+        }
+    }
+
     /**
      * Lance le jeu de la grenouille
      *
      * @return true pour lancer le jeu et false sinon
      */
     static boolean start() {
-        boolean demarrer = false;
+        boolean demarrer = true;
         return demarrer;
     }
 
@@ -548,7 +630,11 @@ public class Backroom {
             } else {
                 tabAct[OldPosX][OldPosY] = 0;
                 tabAct[posX][posY] = 1;
-                creerPlateau();
+                if (niveau == 6) {
+                    creerPlateauNiveau6();
+                } else {
+                    creerPlateau();
+                }
             }
         } else {
             try {
