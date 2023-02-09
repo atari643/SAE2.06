@@ -316,6 +316,7 @@ public class Backroom {
                     break;
                 case 5:
                     Backroom back5 = new Backroom(tabNiv5);
+                    niveau = 5;
                     back5.creerPlateau();
                     back5.niveau5();
                     back5.afficheFin();
@@ -396,7 +397,7 @@ public class Backroom {
         ajouteMouv(0);
         update();
     }
-
+    
     /**
      * Déplace la grenouille vers le bas
      */
@@ -501,6 +502,7 @@ public class Backroom {
     void niveau6() {
         for (int i = 0; i < 5; i++) {
             droite();
+            
         }
         for (int y = 0; y < 4; y++) {
             haut();
@@ -550,7 +552,7 @@ public class Backroom {
         }
         return res;
     }
-
+    static int time = 750;
     /**
      * Créer le plateau en fonction du tableau
      *
@@ -580,7 +582,7 @@ public class Backroom {
                                 plateau.append("|YES");
                                 break;
                             case 8:
-                                plateau.append("|`*" + '\u00E9');
+                                plateau.append("|`*\u00b4");
                             default:
                                 break;
                         }
@@ -598,13 +600,18 @@ public class Backroom {
             plateau.append("+---");
         }
         plateau.append("+");
+        if(niveau==5){
+            time=250;
+        }else{
+            time=750;
+        }
         try {
-            Thread.sleep(750);
+            Thread.sleep(time);
         } catch (InterruptedException ex) {
         }
         System.out.println(plateau);
         try {
-            Thread.sleep(750);
+            Thread.sleep(time);
         } catch (InterruptedException ex) {
         }
     }
@@ -677,12 +684,12 @@ public class Backroom {
         }
         plateau.append("+");
         try {
-            Thread.sleep(750);
+            Thread.sleep(500);
         } catch (InterruptedException ex) {
         }
         System.out.println(plateau);
         try {
-            Thread.sleep(750);
+            Thread.sleep(500);
         } catch (InterruptedException ex) {
         }
     }
