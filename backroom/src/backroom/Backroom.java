@@ -333,15 +333,15 @@ public class Backroom {
                     break;
                 case 7:
                     Visualiser();
-                    jeuTermine = false;
+                    break;
                 case 8:
-                    System.out.println("Indice easter eaggs 1 : ");
-                    System.out.println("Indice easter eaggs 2 : ");
-                    System.out.println("Indice easter eaggs 3 : ");
-                    System.out.println("Indice easter eaggs 4 : ");
-                    System.out.println("Indice easter eaggs 5 : ");
-                    System.out.println("Indice easter eaggs 6 : ");
-                    jeuTermine = false;
+                    System.out.println("Indice easter eaggs 1 : Ne joue pas");
+                    System.out.println("Indice easter eaggs 2 : L'arrivée est trop loin");
+                    System.out.println("Indice easter eaggs 3 : Berlin");
+                    System.out.println("Indice easter eaggs 4 : Va sur le banc");
+                    System.out.println("Indice easter eaggs 5 : `*\u00b4");
+                    System.out.println("Indice easter eaggs 6 : Touches directionnelles");
+                    break;
                 case 9:
                     jeuTermine = false;
                     break;
@@ -466,30 +466,17 @@ public class Backroom {
      * Niveau 4 Ecrire les déplacements ici
      */
     void niveau4() {
-        /*
+
         for (int i = 0; i < 2; i++) {
             bas();
         }
-        droite();
-        bas();
-        bas();
-        gauche();
-        droite();
-        haut();
-        haut();
-        
-        for (int j = 0; j < 4; j++) {
+        for (int j = 0; j < 3; j++) {
             gauche();
         }
         for (int k = 0; k < 2; k++) {
             bas();
-        }*/
-        bas();
-        bas();
-        haut();
-        bas();
-        gauche();
-        droite();
+        }
+
     }
 
     /**
@@ -746,8 +733,6 @@ public class Backroom {
                 System.exit(0);
             }
         }
-
-        //estRond();
     }
 
     /**
@@ -790,7 +775,7 @@ public class Backroom {
      *
      * @return
      */
-    boolean estRond() {//boolean pour stop
+    boolean estRond() {
         boolean res = false;
         if (tabMouv[0] == 3 && tabMouv[1] == 2 && tabMouv[2] == 1 && tabMouv[3] == 0) {
             res = true;
