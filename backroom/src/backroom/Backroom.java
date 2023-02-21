@@ -262,8 +262,8 @@ public class Backroom {
             + "        /`-.`--' .-'\\\n"
             + "   ,--./    `---'    \\,--.\n"
             + "   \\   |( )       ( )|   /\n"
-            + "hjw \\  ||M\\d8888b /M||  /\n"
-            + "`97  \\ |  ###MMMMA   | /\n"
+            + "    \\  ||M\\d8888b /M||  /\n"
+            + "     \\ |  ###MMMMA   | /\n"
             + "     /  \\-vMM8888y,-/  \\\n"
             + "    //| \\\\ QMyWWy  // |\\\\\n"
             + "   /,-.,-.\\       /,-.,-.\\\n"
@@ -482,7 +482,7 @@ public class Backroom {
         for (int i = 0; i < 2; i++) {
             bas();
         }
-        /*
+        
         droite();
         bas();
         bas();
@@ -491,15 +491,15 @@ public class Backroom {
         haut();
         haut();
         gauche();
-         */
+         
+
  /*
         haut();
         bas();
         gauche();
         droite();
         droite();
-         */
-
+   */      
         for (int j = 0; j < 3; j++) {
             gauche();
         }
@@ -727,8 +727,10 @@ public class Backroom {
                 } else if (estArrive()) {
                     if (libellule) {
                         attendre();
+                        afficheFin();
                         System.out.println(GRENOUILLE_LIBELLULE);
                         attendre();
+                        System.exit(0);
                     }
                     tabAct[OldPosX][OldPosY] = 0;
                     tabAct[posX][posY] = 3;
@@ -760,6 +762,9 @@ public class Backroom {
                 System.out.println(affiche);
                 System.exit(0);
             }
+        } else {
+            afficheFin();
+            System.exit(0);
         }
     }
 
@@ -853,7 +858,7 @@ public class Backroom {
      */
     public static void attendre() {
         if (niveau == 5) {
-            time = 400;
+            time = 300;
         }
         try {
             Thread.sleep(time);
