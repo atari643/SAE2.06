@@ -239,7 +239,7 @@ public class Backroom {
     /**
      * Grenouille quand tu manges la libellule
      */
-    final static String GRENOUILLE_LIBELLULE = oui + "easter eggs  5/6 \n" + "\n" 
+    final static String GRENOUILLE_LIBELLULE = oui + "easter eggs  5/6 \n" + "\n"
             + "Bien mangé la libellule?"
             + "          ,-.___.-.\n"
             + "       ,-.(|)   (|),-.\n"
@@ -483,7 +483,8 @@ public class Backroom {
         for (int i = 0; i < 2; i++) {
             bas();
         }
-        
+        /*
+        easter eggs libellule
         droite();
         bas();
         bas();
@@ -492,15 +493,15 @@ public class Backroom {
         haut();
         haut();
         gauche();
-         
+         */
 
- /*
+        /*
+        easter eggs rond
         haut();
         bas();
         gauche();
         droite();
-        droite();
-   */      
+         */
         for (int j = 0; j < 3; j++) {
             gauche();
         }
@@ -719,51 +720,50 @@ public class Backroom {
      * plateaux
      */
     void update() {
-        if (!estRond()) {
-            boolean jeuFin = false;
-            if (estDansPlateau() && !jeuFin) {
-                if (tapeMur()) {
-                    System.out.println(GRENOUILLE_MUR);
+        boolean jeuFin = false;
+        if (estDansPlateau() && !jeuFin) {
+            if (tapeMur()) {
+                System.out.println(GRENOUILLE_MUR);
+                System.exit(0);
+            } else if (estArrive()) {
+                tabAct[OldPosX][OldPosY] = 0;
+                tabAct[posX][posY] = 3;
+                creerPlateau();
+                jeuFin = true;
+                if (libellule) {
+                    attendre();
+                    afficheFin();
+                    System.out.println(GRENOUILLE_LIBELLULE);
+                    attendre();
                     System.exit(0);
-                } else if (estArrive()) {
-                    tabAct[OldPosX][OldPosY] = 0;
-                    tabAct[posX][posY] = 3;
-                    creerPlateau();
-                    jeuFin = true;
-                    if (libellule) {
-                        attendre();
-                        afficheFin();
-                        System.out.println(GRENOUILLE_LIBELLULE);
-                        attendre();
-                        System.exit(0);
-                    }
-                } else {
-                    if (tabAct[posX][posY] == 8) {
-                        libellule = true;
-                    }
-                    tabAct[OldPosX][OldPosY] = 0;
-                    tabAct[posX][posY] = 1;
-                    if (niveau == 6) {
-                        creerPlateauNiveau6();
-                    } else {
-                        creerPlateau();
-                        jeuFin = true;
-                    }
                 }
             } else {
-                try {
-                    Thread.sleep(750);
-                } catch (InterruptedException ex) {
+                if (tabAct[posX][posY] == 8) {
+                    libellule = true;
                 }
-                System.out.println(GRENOUILLE_ESTPERDU);
-                try {
-                    Thread.sleep(750);
-                } catch (InterruptedException ex) {
+                tabAct[OldPosX][OldPosY] = 0;
+                tabAct[posX][posY] = 1;
+                if (niveau == 6) {
+                    creerPlateauNiveau6();
+                } else {
+                    creerPlateau();
+                    jeuFin = true;
                 }
-                System.out.println(affiche);
-                System.exit(0);
             }
         } else {
+            try {
+                Thread.sleep(750);
+            } catch (InterruptedException ex) {
+            }
+            System.out.println(GRENOUILLE_ESTPERDU);
+            try {
+                Thread.sleep(750);
+            } catch (InterruptedException ex) {
+            }
+            System.out.println(affiche);
+            System.exit(0);
+        }
+        if (estRond()) {
             afficheFin();
             System.exit(0);
         }
@@ -776,22 +776,6 @@ public class Backroom {
         for (int i = tabMouv.length - 1; i > 0; i--) {
             tabMouv[i] = tabMouv[i - 1];
         }
-    }
-
-    /**
-     * Test si l'entier passé en paramètre se trouve dans le tableau tabMouv
-     *
-     * @param a
-     * @return
-     */
-    boolean existe(int a) {
-        boolean res = false;
-        for (int i = 0; i < tabMouv.length; i++) {
-            if (tabMouv[i] == a) {
-                res = true;
-            }
-        }
-        return res;
     }
 
     /**
