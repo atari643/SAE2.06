@@ -48,7 +48,25 @@ public class Backroom {
      */
     int[][] tabAct;
 
+    /**
+     * Tableau des 4 derniers mouvements
+     */
     int[] tabMouv = new int[4];
+
+    /**
+     * Time pour le temps d'affichage entre deux plateaux
+     */
+    static int time = 750;
+
+    /**
+     * Niveau de jeu
+     */
+    static int niveau;
+
+    /**
+     * Libellule
+     */
+    static boolean libellule = false;
 
     /**
      * Tableau du niveau 2
@@ -276,7 +294,6 @@ public class Backroom {
                 + "     /,-.,-.\\       /,-.,-.\\\n"
                 + "    o   o   o      o   o    o");
     }
-    static int niveau = 0;
 
     /**
      * Permet de choisir une des fonctionnalités parmi les différents niveaux et
@@ -299,21 +316,18 @@ public class Backroom {
                     back2.creerPlateau();
                     back2.niveau2();
                     back2.afficheFin();
-                    jeuTermine = back2.estArrive();
                     break;
                 case 3:
                     Backroom back3 = new Backroom(tabNiv3);
                     back3.creerPlateau();
                     back3.niveau3();
                     back3.afficheFin();
-                    jeuTermine = back3.estArrive();
                     break;
                 case 4:
                     Backroom back4 = new Backroom(tabNiv4);
                     back4.creerPlateau();
                     back4.niveau4();
                     back4.afficheFin();
-                    jeuTermine = back4.estArrive();
                     break;
                 case 5:
                     Backroom back5 = new Backroom(tabNiv5);
@@ -321,7 +335,6 @@ public class Backroom {
                     back5.creerPlateau();
                     back5.niveau5();
                     back5.afficheFin();
-                    jeuTermine = back5.estArrive();
                     break;
                 case 6:
                     Backroom back6 = new Backroom(tabNiv6);
@@ -329,7 +342,6 @@ public class Backroom {
                     back6.creerPlateauNiveau6();
                     back6.niveau6();
                     back6.afficheFin();
-                    jeuTermine = back6.estArrive();
                     break;
                 case 7:
                     Visualiser();
@@ -343,12 +355,12 @@ public class Backroom {
                     System.out.println("Indice easter eaggs 6 : Touches directionnelles");
                     break;
                 case 9:
-                    jeuTermine = false;
                     break;
                 default:
                     System.out.println("Erreur de saisie");
                     break;
             }
+            jeuTermine = false;
         }
     }
 
@@ -470,6 +482,24 @@ public class Backroom {
         for (int i = 0; i < 2; i++) {
             bas();
         }
+        /*
+        droite();
+        bas();
+        bas();
+        gauche();
+        droite();
+        haut();
+        haut();
+        gauche();
+         */
+ /*
+        haut();
+        bas();
+        gauche();
+        droite();
+        droite();
+         */
+
         for (int j = 0; j < 3; j++) {
             gauche();
         }
@@ -548,7 +578,6 @@ public class Backroom {
         }
         return res;
     }
-    static int time = 750;
 
     /**
      * Créer le plateau en fonction du tableau
@@ -673,7 +702,6 @@ public class Backroom {
         System.out.println(plateau);
         attendre();
     }
-    static boolean libellule = false;
 
     /**
      * Lance le jeu de la grenouille
@@ -820,7 +848,13 @@ public class Backroom {
         }
     }
 
+    /**
+     * Mets un temps entre chaque affichage du plateau
+     */
     public static void attendre() {
+        if (niveau == 5) {
+            time = 400;
+        }
         try {
             Thread.sleep(time);
         } catch (InterruptedException ex) {
