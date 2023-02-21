@@ -239,7 +239,8 @@ public class Backroom {
     /**
      * Grenouille quand tu manges la libellule
      */
-    final static String GRENOUILLE_LIBELLULE = oui + "easter eggs  5/6 \n" + "\n"
+    final static String GRENOUILLE_LIBELLULE = oui + "easter eggs  5/6 \n" + "\n" 
+            + "Bien mangé la libellule?"
             + "          ,-.___.-.\n"
             + "       ,-.(|)   (|),-.\n"
             + "       \\_*._ ' '_.* _/\n"
@@ -725,6 +726,10 @@ public class Backroom {
                     System.out.println(GRENOUILLE_MUR);
                     System.exit(0);
                 } else if (estArrive()) {
+                    tabAct[OldPosX][OldPosY] = 0;
+                    tabAct[posX][posY] = 3;
+                    creerPlateau();
+                    jeuFin = true;
                     if (libellule) {
                         attendre();
                         afficheFin();
@@ -732,10 +737,6 @@ public class Backroom {
                         attendre();
                         System.exit(0);
                     }
-                    tabAct[OldPosX][OldPosY] = 0;
-                    tabAct[posX][posY] = 3;
-                    creerPlateau();
-                    jeuFin = true;
                 } else {
                     if (tabAct[posX][posY] == 8) {
                         libellule = true;
