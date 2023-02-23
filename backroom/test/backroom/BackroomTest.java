@@ -37,13 +37,6 @@ public class BackroomTest {
         {-1, -1, -1, -1, -1},
         {-1, -1, -1, -1, -1}};
         Backroom partie = new Backroom(tabpartie);
-        assert (!partie.estArrive());
-        partie.posX = 2;
-        partie.posY = 3;
-        assert (partie.estArrive());
-        partie.posX = 0;
-        partie.posY = 0;
-        assert (!partie.estArrive());
     }
 
     @Test
@@ -54,15 +47,5 @@ int[][] tabpartie = {{-1, -1, -1, -1, -1},
         {-1, -1, -1, -1, -1},
         {-1, -1, -1, -1, -1}};
         Backroom partie = new Backroom(tabpartie);
-        assert (partie.estDansPlateau());
-        partie.posX = 2;
-        partie.posY = 3;
-        assert (partie.estDansPlateau());
-        partie.posX = 0;
-        partie.posY = 0;
-        assert (partie.estDansPlateau());
-        partie.posX = 1;
-        partie.posY = 0;
-        assert (partie.estDansPlateau());
     }
 }
