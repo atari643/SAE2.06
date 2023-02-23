@@ -516,7 +516,7 @@ public class Backroom {
      */
     void niveau5() {
 
-        while (tabAct[posX][posY - 1] == 0) {
+        while (pasDeMur('g')) {
             gauche();
         }
         haut();
@@ -576,6 +576,38 @@ public class Backroom {
     boolean estDansPlateau() {
         boolean res = false;
         if (posX >= 0 && posY >= 0 && posX < tabAct.length && posY < tabAct[0].length) {
+            res = true;
+        }
+        return res;
+    }
+
+    /**
+     * Teste si un mur est présent après le déplacement passé en paramètre
+     * @param car   caractère du déplacement
+     * @return true si il n'y a pas de mur et false sinon
+     */
+    boolean pasDeMur(char car) {
+        int i = 0;
+        int j = 0;
+        boolean res = false;
+        switch (car) {
+            case 'h':
+                i--;
+                break;
+            case 'b':
+                i++;
+                break;
+            case 'g':
+                j--;
+                break;
+            case 'd':
+                j++;
+                break;
+            default:
+                System.out.println("Erreur, " + car + " n'es pas un bon déplacement");
+                break;
+        }
+        if (tabAct[posX + i][posY + j] == 0) {
             res = true;
         }
         return res;
