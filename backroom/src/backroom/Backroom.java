@@ -79,9 +79,10 @@ public class Backroom {
      * Niveau 3 Ecrire les déplacements ici
      */
     void niveau3() {
-        for (int i = 0; i < 3; i++) {
+        /*for (int i = 0; i < 3; i++) {
             droite();
-        }
+        }*/
+        
     }
 
     /**
