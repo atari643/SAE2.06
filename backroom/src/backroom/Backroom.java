@@ -30,7 +30,7 @@ public class Backroom {
     void haut() {
         OldPosX = posX;
         OldPosY = posY;
-        posX = posX - 1;
+        //TODO
         ajouteMouv(0);
         update();
     }
@@ -39,7 +39,11 @@ public class Backroom {
      * Déplace la grenouille vers le bas
      */
     void bas() {
-        //TODO
+        OldPosX = posX;
+        OldPosY = posY;
+        posX = posX + 1;
+        ajouteMouv(1);
+        update();
     }
 
     /**
