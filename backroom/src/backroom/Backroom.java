@@ -30,7 +30,7 @@ public class Backroom {
     void haut() {
         OldPosX = posX;
         OldPosY = posY;
-        //TODO
+        posX = posX - 1;
         ajouteMouv(0);
         update();
     }
@@ -72,36 +72,64 @@ public class Backroom {
      * Niveau 2 Ecrire les déplacements ici
      */
     void niveau2() {
-        //TODO
+        droite();
     }
 
     /**
      * Niveau 3 Ecrire les déplacements ici
      */
     void niveau3() {
-        //TODO
+        for (int i = 0; i < 3; i++) {
+            droite();
+        }
     }
 
     /**
      * Niveau 4 Ecrire les déplacements ici
      */
     void niveau4() {
-        //TODO
+        for (int i = 0; i < 2; i++) {
+            bas();
+        }
+        for (int i = 0; i < 3; i++) {
+            gauche();
+        }
+        for (int i = 0; i < 2; i++) {
+            bas();
+        }
     }
 
     /**
      * Niveau 5 Ecrire les déplacements ici
      */
     void niveau5() {
-        //TODO
-
+        while (pasDeMur('g')){
+            gauche();
+        }
+        while (!estArrive()){
+            haut();
+        }
     }
 
     /**
      * Niveau 6 Ecrire les déplacements ici
      */
     void niveau6() {
-        //TODO
+        droite();
+        droite();
+        droite();
+        droite();
+        droite();
+        
+        haut();
+        haut();
+        haut();
+        haut();
+        
+        gauche();
+        gauche();
+        gauche();
+        gauche();
     }
     
 
