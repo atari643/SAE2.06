@@ -79,9 +79,15 @@ public class Backroom {
      * Niveau 3 Ecrire les déplacements ici
      */
     void niveau3() {
-        /*for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             droite();
-        }*/
+        }
+        /*easter eggs backroom
+        gauche();
+        */
+        /*easter egg mur
+        bas();
+        */
         
     }
 
@@ -98,6 +104,29 @@ public class Backroom {
         for (int i = 0; i < 2; i++) {
             bas();
         }
+        /*
+        easter eggs libellule
+        bas();
+        bas();
+        droite();
+        bas();
+        bas();
+        gauche();
+        droite();
+        haut();
+        haut();
+        gauche();
+         */
+        /*
+        easter eggs rond
+        haut();
+        bas();
+        gauche();
+        droite();
+         */
+
+        
+
     }
 
     /**
