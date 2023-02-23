@@ -14,18 +14,154 @@ import java.util.logging.Logger;
  * @author qartigala
  */
 public class Backroom {
+    
+    /**
+     * Lance le jeu de la grenouille
+     *
+     * @return true pour lancer le jeu et false sinon
+     */
+    static boolean start() {
+        boolean demarrer = true;
+        return demarrer;
+    }
+    /**
+     * Déplace la grenouille vers le haut
+     */
+    void haut() {
+        OldPosX = posX;
+        OldPosY = posY;
+        posX = posX - 1;
+        ajouteMouv(0);
+        update();
+    }
 
-    final static String oui = "$$$$$$$$\\  $$$$$$\\   $$$$$$\\ $$$$$$$$\\ $$$$$$$$\\ $$$$$$$\\        $$$$$$$$\\  $$$$$$\\   $$$$$$\\   $$$$$$\\   $$$$$$\\  \n"
-            + "$$  _____|$$  __$$\\ $$  __$$\\\\__$$  __|$$  _____|$$  __$$\\       $$  _____|$$  __$$\\ $$  __$$\\ $$  __$$\\ $$  __$$\\ \n"
-            + "$$ |      $$ /  $$ |$$ /  \\__|  $$ |   $$ |      $$ |  $$ |      $$ |      $$ /  $$ |$$ /  \\__|$$ /  \\__|$$ /  \\__|\n"
-            + "$$$$$\\    $$$$$$$$ |\\$$$$$$\\    $$ |   $$$$$\\    $$$$$$$  |      $$$$$\\    $$$$$$$$ |$$ |$$$$\\ $$ |$$$$\\ \\$$$$$$\\  \n"
-            + "$$  __|   $$  __$$ | \\____$$\\   $$ |   $$  __|   $$  __$$<       $$  __|   $$  __$$ |$$ |\\_$$ |$$ |\\_$$ | \\____$$\\ \n"
-            + "$$ |      $$ |  $$ |$$\\   $$ |  $$ |   $$ |      $$ |  $$ |      $$ |      $$ |  $$ |$$ |  $$ |$$ |  $$ |$$\\   $$ |\n"
-            + "$$$$$$$$\\ $$ |  $$ |\\$$$$$$  |  $$ |   $$$$$$$$\\ $$ |  $$ |      $$$$$$$$\\ $$ |  $$ |\\$$$$$$  |\\$$$$$$  |\\$$$$$$  |\n"
-            + "\\________|\\__|  \\__| \\______/   \\__|   \\________|\\__|  \\__|      \\________|\\__|  \\__| \\______/  \\______/  \\______/ \n"
-            + "                                                                                                                   \n"
-            + "                                                                                                                   \n"
-            + "                                                                                                                   \n";
+    /**
+     * Déplace la grenouille vers le bas
+     */
+    void bas() {
+        OldPosX = posX;
+        OldPosY = posY;
+        posX = posX + 1;
+        ajouteMouv(1);
+        update();
+    }
+
+    /**
+     * Déplace la grenouille vers la gauche
+     */
+    void gauche() {
+        OldPosY = posY;
+        OldPosX = posX;
+        posY = posY - 1;
+        ajouteMouv(2);
+        update();
+    }
+
+    /**
+     * Déplace la grenouille vers la droite
+     */
+    void droite() {
+        OldPosY = posY;
+        OldPosX = posX;
+        posY = posY + 1;
+        ajouteMouv(3);
+        update();
+
+    }
+    /**
+     * Niveau 2 Ecrire les déplacements ici
+     */
+    void niveau2() {
+        droite();
+    }
+
+    /**
+     * Niveau 3 Ecrire les déplacements ici
+     */
+    void niveau3() {
+        for (int i = 0; i < 3; i++) {
+            droite();
+        }
+        /*easter eggs backroom
+        gauche();
+        */
+        /*easter egg mur
+        bas();
+        */
+        
+    }
+
+    /**
+     * Niveau 4 Ecrire les déplacements ici
+     */
+    void niveau4() {
+        for (int i = 0; i < 2; i++) {
+            bas();
+        }
+        for (int i = 0; i < 3; i++) {
+            gauche();
+        }
+        for (int i = 0; i < 2; i++) {
+            bas();
+        }
+        /*
+        easter eggs libellule
+        bas();
+        bas();
+        droite();
+        bas();
+        bas();
+        gauche();
+        droite();
+        haut();
+        haut();
+        gauche();
+         */
+        /*
+        easter eggs rond
+        haut();
+        bas();
+        gauche();
+        droite();
+         */
+
+        
+
+    }
+
+    /**
+     * Niveau 5 Ecrire les déplacements ici
+     */
+    void niveau5() {
+        while (pasDeMur('g')){
+            gauche();
+        }
+        while (!estArrive()){
+            haut();
+        }
+    }
+
+    /**
+     * Niveau 6 Ecrire les déplacements ici
+     */
+    void niveau6() {
+        droite();
+        droite();
+        droite();
+        droite();
+        droite();
+        
+        haut();
+        haut();
+        haut();
+        haut();
+        
+        gauche();
+        gauche();
+        gauche();
+        gauche();
+    }
+    
 
     /**
      * Position x de la grenouille.
@@ -52,11 +188,6 @@ public class Backroom {
      * Tableau des 4 derniers mouvements
      */
     int[] tabMouv = new int[4];
-
-    /**
-     * Time pour le temps d'affichage entre deux plateaux
-     */
-    static int time = 750;
 
     /**
      * Niveau de jeu
@@ -107,168 +238,7 @@ public class Backroom {
         {-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
     };
-    /**
-     * Tableau du niveau 6
-     */
-    static int[][] tabNiv6 = {
-        {-1, -1, -1, -1, 2, 0, 0, 0, 0},
-        {-1, -1, -1, -1, -1, -1, -1, -1, 0},
-        {-1, 0, -1, 0, -1, -1, -1, -1, 0},
-        {-1, 0, -1, 0, -1, -1, -1, -1, 0},
-        {0, 0, 0, 1, 0, 0, 0, 0, 0},
-        {-1, -1, -1, 0, -1, -1, -1, -1, -1},
-        {-1, -1, -1, 0, -1, -1, -1, -1, -1},
-        {-1, -1, -1, -1, -1, -1, -1, -1, -1}
-    };
-
-    /**
-     * Grenouille quand tu ne joues pas
-     */
-    final static String GRENOUILLE_PASJOUE = oui + "easter eggs 1/6 \n" + "\n"
-            + "TU JOUES PAS \n"
-            + "    /     \\\n"
-            + "      _(I)(I)_\n"
-            + "     ( _ .. _ )\n"
-            + "      `.`--'.'\n"
-            + "       )    (\n"
-            + "   ,-./      \\,-.\n"
-            + "  ( _( ||  || )_ ) hjw\n"
-            + " __\\ \\\\||--||'/ /__\n"
-            + " `-._//||\\/||\\\\_.-'\n"
-            + "      `--'`--'";
-
-    final static String affiche = ""
-            + "███   ▄█ ▄███▄      ▄       ▄   ▄███▄      ▄     ▄   ▄███▄       ██▄   ██      ▄      ▄▄▄▄▄       █     ▄███▄     ▄▄▄▄▄       ███   ██   ▄█▄    █  █▀ █▄▄▄▄ ████▄ ████▄ █▀▄▀█     \n"
-            + "█  █  ██ █▀   ▀      █       █  █▀   ▀      █     █  █▀   ▀      █  █  █ █      █    █     ▀▄     █     █▀   ▀   █     ▀▄     █  █  █ █  █▀ ▀▄  █▄█   █  ▄▀ █   █ █   █ █ █ █     \n"
-            + "█ ▀ ▄ ██ ██▄▄    ██   █ █     █ ██▄▄    ██   █ █   █ ██▄▄        █   █ █▄▄█ ██   █ ▄  ▀▀▀▀▄       █     ██▄▄   ▄  ▀▀▀▀▄       █ ▀ ▄ █▄▄█ █   ▀  █▀▄   █▀▀▌  █   █ █   █ █ ▄ █     \n"
-            + "█  ▄▀ ▐█ █▄   ▄▀ █ █  █  █    █ █▄   ▄▀ █ █  █ █   █ █▄   ▄▀     █  █  █  █ █ █  █  ▀▄▄▄▄▀        ███▄  █▄   ▄▀ ▀▄▄▄▄▀        █  ▄▀ █  █ █▄  ▄▀ █  █  █  █  ▀████ ▀████ █   █     \n"
-            + "███    ▐ ▀███▀   █  █ █   █  █  ▀███▀   █  █ █ █▄ ▄█ ▀███▀       ███▀     █ █  █ █                    ▀ ▀███▀                 ███      █ ▀███▀    █     █                  █      \n"
-            + "                 █   ██    █▐           █   ██  ▀▀▀                      █  █   ██                                                    █          ▀     ▀                  ▀       \n"
-            + "                           ▐                                            ▀                                                            ▀                                            ";
-    /**
-     * Grenouille quand t'as perdu
-     */
-    final static String GRENOUILLE_ESTPERDU = oui + "easter eggs  4/6 \n" + "\n"
-            + "TU ES ALLE.E TROP LOIN ? \n"
-            + "          .--._.--.\n"
-            + "          ( O     O )\n"
-            + "          /   . .   \\\n"
-            + "         .`._______.'.\n"
-            + "        /(           )\\\n"
-            + "      _/  \\  \\   /  /  \\_\n"
-            + "   .~   `  \\  \\ /  /  '   ~.\n"
-            + "  {    -.   \\  V  /   .-    }\n"
-            + "_ _`.    \\  |  |  |  /    .'_ _\n"
-            + ">_       _} |  |  | {_       _<\n"
-            + " /. - ~ ,_-'  .^.  `-_, ~ - .\\\n"
-            + "         '-'|/   \\|`-`\n"
-            + "TU AS QUITTE(E) LE PLATEAU ET TU ES TOMBE(E) ? \n";
-
-    /**
-     * Grenouille quand tu te tapes le mur
-     */
-    final static String GRENOUILLE_MUR = oui + "easter eggs  3/6 \n" + "\n"
-            + "EH BEN ALORS, FAUT PAS SE PRENDRE LES MURS \n"
-            + "            _____________________\n"
-            + "            |###################|\n"
-            + "            |###################|\n"
-            + "            |###################|\n"
-            + "            |###################|\n"
-            + "((-----------------------------------------\n"
-            + "| \\         /  /@@ \\      /@@ \\  \\\n"
-            + " \\ \\,      /  (     )    (     )  \\            _____\n"
-            + "  \\ \\      |   \\___/      \\___/   |           /  __ \\\n"
-            + "   \\ \"\"*-__/                      \\           | |  | |\n"
-            + "    \"\"*-_                         \"-_         | |  \"\"\"\n"
-            + "         \\    -.  _________   .-   __\"-.__.-((  ))\n"
-            + "          \\,    \\^    U    ^/     /  \"-___--((  ))\n"
-            + "            \\,   \\         /    /'            | |\n"
-            + "             |    \\       /   /'              | |\n"
-            + "             |     \"-----\"    \\               | |\n"
-            + "            /                  \"*-._          | |\n"
-            + "           /   /\\          /*-._    \\         | |\n"
-            + "          /   /  \"\\______/\"     /   /         | |\n"
-            + "         /   /                 /   /          | |\n"
-            + "        /. ./                  |. .|          \"\"\"\n"
-            + "       /  | |                  / | \\\n"
-            + "      /   |  \\                /  |  \\\n"
-            + "     /.-./.-.|               /.-.|.-.\\ \n"
-            + "EH BEN ALORS, FAUT PAS SE PRENDRE LES MURS \n";
-
-    /**
-     * Grenouille quand tu gagnes
-     */
-    final static String GRENOUILLE_GAGNE = "VOUS AVEZ GAGNE! BRAVO \n"
-            + "       ____  __.---\"\"---.__  ____\n"
-            + "      /####\\/              \\/####\\\n"
-            + "     (   /\\ )              ( /\\   )\n"
-            + "      \\____/                \\____/\n"
-            + "    __/                          \\__\n"
-            + " .-\"    .                      .    \"-.\n"
-            + " |  |   \\.._                _../   |  |\n"
-            + "  \\  \\    \\.\"-.__________.-\"./    /  /\n"
-            + "    \\  \\    \"--.________.--\"    /  /\n"
-            + "  ___\\  \\_                    _/  /___\n"
-            + "./    )))))                  (((((    \\.\n"
-            + "\\                                      /\n"
-            + " \\           \\_          _/           /\n"
-            + "   \\    \\____/\"\"-.____.-\"\"\\____/    /\n"
-            + "     \\    \\                  /    /\n"
-            + "      \\.  .|                |.  ./\n"
-            + "    .\" / |  \\              /  | \\  \".\n"
-            + " .\"  /   |   \\            /   |   \\   \".\n"
-            + "/.-./.--.|.--.\\          /.--.|.--.\\.-.| \n"
-            + "VOUS AVEZ GAGNE! BRAVO \n";
-
-    /**
-     * Message perdu
-     */
-    final static String PERDU = oui + "easter eggs 2/6 \n" + "\n"
-            + "$$$$$$$\\  $$$$$$$$\\ $$$$$$$\\  $$$$$$$\\  $$\\   $$\\ \n"
-            + "$$  __$$\\ $$  _____|$$  __$$\\ $$  __$$\\ $$ |  $$ |\n"
-            + "$$ |  $$ |$$ |      $$ |  $$ |$$ |  $$ |$$ |  $$ |\n"
-            + "$$$$$$$  |$$$$$\\    $$$$$$$  |$$ |  $$ |$$ |  $$ |\n"
-            + "$$  ____/ $$  __|   $$  __$$< $$ |  $$ |$$ |  $$ |\n"
-            + "$$ |      $$ |      $$ |  $$ |$$ |  $$ |$$ |  $$ |\n"
-            + "$$ |      $$$$$$$$\\ $$ |  $$ |$$$$$$$  |\\$$$$$$  |\n"
-            + "\\__|      \\________|\\__|  \\__|\\_______/  \\______/ \n"
-            + "                                                  \n"
-            + "                                                  \n"
-            + "                                                  ";
-
-    /**
-     * Grenouille quand tu manges la libellule
-     */
-    final static String GRENOUILLE_LIBELLULE = oui + "easter eggs  5/6 \n" + "\n"
-            + "Bien mangé la libellule?"
-            + "          ,-.___.-.\n"
-            + "       ,-.(|)   (|),-.\n"
-            + "       \\_*._ ' '_.* _/\n"
-            + "        /`-.`--' .-'\\\n"
-            + "   ,--./    `---'    \\,--.\n"
-            + "   \\   |(  )     (  )|   /\n"
-            + "    \\  | ||       || |  /\n"
-            + "     \\ | /|\\     /|\\ | /\n"
-            + "     /  \\-._     _,-/  \\\n"
-            + "    //| \\\\  `---'  // |\\\\\n"
-            + "   /,-.,-.\\       /,-.,-.\\\n"
-            + "  o   o   o      o   o    o";
-
-    final static String GRENOUILLE_ROND = oui + "easter eggs 6/6\n" + "\n"
-            + "         o  o   o  o\n"
-            + "         |\\/ \\^/ \\/|\n"
-            + "         |,-------.|\n"
-            + "       ,-.(|)   (|),-.\n"
-            + "       \\_*._ ' '_.* _/\n"
-            + "        /`-.`--' .-'\\\n"
-            + "   ,--./    `---'    \\,--.\n"
-            + "   \\   |( )       ( )|   /\n"
-            + "    \\  ||M\\d8888b /M||  /\n"
-            + "     \\ |  ###MMMMA   | /\n"
-            + "     /  \\-vMM8888y,-/  \\\n"
-            + "    //| \\\\ QMyWWy  // |\\\\\n"
-            + "   /,-.,-.\\       /,-.,-.\\\n"
-            + "  o   o   o      o   o    o";
+                            
 
     /**
      * Affiche l'interface du menu
@@ -348,12 +318,12 @@ public class Backroom {
                     Visualiser();
                     break;
                 case 8:
-                    System.out.println("Indice easter eaggs 1 : Ne joue pas");
-                    System.out.println("Indice easter eaggs 2 : L'arrivée est trop loin");
-                    System.out.println("Indice easter eaggs 3 : Berlin");
-                    System.out.println("Indice easter eaggs 4 : Va sur le banc");
-                    System.out.println("Indice easter eaggs 5 : `*\u00b4");
-                    System.out.println("Indice easter eaggs 6 : Touches directionnelles");
+                    System.out.println("Indice easter eggs 1 : Ne joue pas");
+                    System.out.println("Indice easter eggs 2 : L'arrivée est trop loin");
+                    System.out.println("Indice easter eggs 3 : Berlin");
+                    System.out.println("Indice easter eggs 4 : Va sur le banc");
+                    System.out.println("Indice easter eggs 5 : `*\u00b4");
+                    System.out.println("Indice easter eggs 6 : Touches directionnelles");
                     break;
                 case 9:
                     break;
@@ -364,29 +334,67 @@ public class Backroom {
             jeuTermine = false;
         }
     }
+    
+    /**
+     * Teste si un mur est présent après le déplacement passé en paramètre
+     * @param car   caractère du déplacement
+     * @return true si il n'y a pas de mur et false sinon
+     */
+    boolean pasDeMur(char car) {
+        int i = 0;
+        int j = 0;
+        boolean res = false;
+        switch (car) {
+            case 'h':
+            case 'H':
+                i--;
+                break;
+            case 'b':
+            case 'B':
+                i++;
+                break;
+            case 'g':
+            case 'G':
+                j--;
+                break;
+            case 'd':
+            case 'D':
+                j++;
+                break;
+            default:
+                System.out.println("Erreur, " + car + " n'es pas un bon déplacement");
+                break;
+        }
+        if (tabAct[posX + i][posY + j] == 0) {
+            res = true;
+        }
+        return res;
+    }
+
+
 
     /**
      * Permet de visualiser tous les plateaux
      */
     static void Visualiser() {
-        System.out.println("Plateau niveau 2");
+        System.out.println("Plateau niveau 2 \n");
         Backroom back2 = new Backroom(tabNiv2);
         back2.creerPlateau();
-        System.out.println("Plateau niveau 3");
+        System.out.println("Plateau niveau 3 \n");
         Backroom back3 = new Backroom(tabNiv3);
         back3.creerPlateau();
-        System.out.println("Plateau niveau 4");
+        System.out.println("Plateau niveau 4 \n");
         Backroom back4 = new Backroom(tabNiv4);
         back4.creerPlateau();
-        System.out.println("Plateau niveau 5");
+        System.out.println("Plateau niveau 5 \n");
         Backroom back5 = new Backroom(tabNiv5);
         back5.creerPlateau();
     }
 
     /**
-     * Demande de saisir un nombre valide pour lancer un jeu ou quitter (1-6)
+     * Demande de saisir un nombre valide pour lancer un jeu ou quitter (2-9)
      *
-     * @param min jeu numéro 1
+     * @param min jeu numéro 2
      * @param max boutton quitter
      * @return le numéro saisi pour le jeu ou quitter
      */
@@ -400,52 +408,7 @@ public class Backroom {
             return nombre;
         }
     }
-
-    /**
-     * Déplace la grenouille vers le haut
-     */
-    void haut() {
-        OldPosX = posX;
-        OldPosY = posY;
-        posX = posX - 1;
-        ajouteMouv(0);
-        update();
-    }
-
-    /**
-     * Déplace la grenouille vers le bas
-     */
-    void bas() {
-        OldPosX = posX;
-        OldPosY = posY;
-        posX = posX + 1;
-        ajouteMouv(1);
-        update();
-    }
-
-    /**
-     * Déplace la grenouille vers la gauche
-     */
-    void gauche() {
-        OldPosY = posY;
-        OldPosX = posX;
-        posY = posY - 1;
-        ajouteMouv(2);
-        update();
-    }
-
-    /**
-     * Déplace la grenouille vers la droite
-     */
-    void droite() {
-        OldPosY = posY;
-        OldPosX = posX;
-        posY = posY + 1;
-        ajouteMouv(3);
-        update();
-
-    }
-
+    
     /**
      * Test si la grenouille se déplace dans un mur
      *
@@ -458,88 +421,7 @@ public class Backroom {
         }
         return res;
     }
-
-    /**
-     * Niveau 2 Ecrire les déplacements ici
-     */
-    void niveau2() {
-        droite();
-    }
-
-    /**
-     * Niveau 3 Ecrire les déplacements ici
-     */
-    void niveau3() {
-        for (int i = 0; i < 3; i++) {
-            droite();
-        }
-    }
-
-    /**
-     * Niveau 4 Ecrire les déplacements ici
-     */
-    void niveau4() {
-
-        for (int i = 0; i < 2; i++) {
-            bas();
-        }
-        /*
-        easter eggs libellule
-        droite();
-        bas();
-        bas();
-        gauche();
-        droite();
-        haut();
-        haut();
-        gauche();
-         */
-
-        /*
-        easter eggs rond
-        haut();
-        bas();
-        gauche();
-        droite();
-         */
-        for (int j = 0; j < 3; j++) {
-            gauche();
-        }
-        for (int k = 0; k < 2; k++) {
-            bas();
-        }
-
-    }
-
-    /**
-     * Niveau 5 Ecrire les déplacements ici
-     */
-    void niveau5() {
-
-        while (tabAct[posX][posY - 1] == 0) {
-            gauche();
-        }
-        haut();
-        haut();
-
-    }
-
-    /**
-     * Niveau 6 Ecrire les déplacements ici
-     */
-    void niveau6() {
-        for (int i = 0; i < 5; i++) {
-            droite();
-
-        }
-        for (int y = 0; y < 4; y++) {
-            haut();
-        }
-        for (int j = 0; j < 4; j++) {
-            gauche();
-        }
-    }
-
+    
     /**
      * Teste si la grenouille est arrivée sur le nénuphar
      *
@@ -634,7 +516,7 @@ public class Backroom {
     }
 
     /**
-     * Permet de crée un plateau pour le niveau 6
+     * Permet de créer un plateau pour le niveau 6
      */
     void creerPlateauNiveau6() {
         StringBuilder plateau = new StringBuilder();
@@ -705,18 +587,10 @@ public class Backroom {
         attendre();
     }
 
-    /**
-     * Lance le jeu de la grenouille
-     *
-     * @return true pour lancer le jeu et false sinon
-     */
-    static boolean start() {
-        boolean demarrer = true;
-        return demarrer;
-    }
+    
 
     /**
-     * Mets à jour tous les délacements dans le tableau et d'afficher les
+     * Met à jour tous les délacements dans le tableau et affiche les
      * plateaux
      */
     void update() {
@@ -745,8 +619,10 @@ public class Backroom {
                 tabAct[posX][posY] = 1;
                 if (niveau == 6) {
                     creerPlateauNiveau6();
+                    System.out.println("");
                 } else {
                     creerPlateau();
+                    System.out.println("");
                     jeuFin = true;
                 }
             }
@@ -760,7 +636,7 @@ public class Backroom {
                 Thread.sleep(750);
             } catch (InterruptedException ex) {
             }
-            System.out.println(affiche);
+            System.out.println(AFFICHE);
             System.exit(0);
         }
         if (estRond()) {
@@ -781,7 +657,7 @@ public class Backroom {
     /**
      * Permet d'ajouter un mouvement (int) dans le tableau tabMouv
      *
-     * @param a
+     * @param a numero du mouvement
      */
     void ajouteMouv(int a) {
         decalageDroite();
@@ -791,7 +667,7 @@ public class Backroom {
     /**
      * Test si la grenouille tourne en rond
      *
-     * @return
+     * @return vrai ssi il est revenue sur lui même et faux sinn
      */
     boolean estRond() {
         boolean res = false;
@@ -839,15 +715,17 @@ public class Backroom {
     }
 
     /**
-     * Mets un temps entre chaque affichage du plateau
+     * Met un temps entre chaque affichage du plateau
      */
     public static void attendre() {
+        int time = 750;
         if (niveau == 5) {
             time = 300;
         }
         try {
             Thread.sleep(time);
         } catch (InterruptedException ex) {
+            System.out.println("Exeption"+ex);
         }
     }
 
@@ -862,5 +740,187 @@ public class Backroom {
         }
 
     }
+                                                                                                                                                                        /**
+                                                                                                                                                                         * Affiche un message
+                                                                                                                                                                         */ 
+                                                                                                                                                                        final static String OUI = 
+                                                                                                                                                                                "$$$$$$$$\\  $$$$$$\\   $$$$$$\\ $$$$$$$$\\ $$$$$$$$\\ $$$$$$$\\        $$$$$$$$\\  $$$$$$\\   $$$$$$\\   $$$$$$\\  \n"
+                                                                                                                                                                                + "$$  _____|$$  __$$\\ $$  __$$\\\\__$$  __|$$  _____|$$  __$$\\       $$  _____|$$  __$$\\ $$  __$$\\ $$  __$$\\ \n"
+                                                                                                                                                                                + "$$ |      $$ /  $$ |$$ /  \\__|  $$ |   $$ |      $$ |  $$ |      $$ |      $$ /  \\__|$$ /  \\__|$$ /  \\__|\n"
+                                                                                                                                                                                + "$$$$$\\    $$$$$$$$ |\\$$$$$$\\    $$ |   $$$$$\\    $$$$$$$  |      $$$$$\\    $$ |$$$$\\ $$ |$$$$\\ \\$$$$$$\\  \n"
+                                                                                                                                                                                + "$$  __|   $$  __$$ | \\____$$\\   $$ |   $$  __|   $$  __$$<       $$  __|   $$ |\\_$$ |$$ |\\_$$ | \\____$$\\ \n"
+                                                                                                                                                                                + "$$ |      $$ |  $$ |$$\\   $$ |  $$ |   $$ |      $$ |  $$ |      $$ |      $$ |  $$ |$$ |  $$ |$$\\   $$ |\n"
+                                                                                                                                                                                + "$$$$$$$$\\ $$ |  $$ |\\$$$$$$  |  $$ |   $$$$$$$$\\ $$ |  $$ |      $$$$$$$$\\ \\$$$$$$  |\\$$$$$$  |\\$$$$$$  |\n"
+                                                                                                                                                                                + "\\________|\\__|  \\__| \\______/   \\__|   \\________|\\__|  \\__|      \\________| \\______/  \\______/  \\______/ \n"
+                                                                                                                                                                                + "                                                                                                         \n"
+                                                                                                                                                                                + "                                                                                                         \n"
+                                                                                                                                                                                + "                                                                                                         \n";
+
+                                                                                                                                                                        /**
+                                                                                                                                                                        * Tableau du niveau 6
+                                                                                                                                                                        */
+                                                                                                                                                                       static int[][] tabNiv6 = {
+                                                                                                                                                                           {-1, -1, -1, -1, 2, 0, 0, 0, 0},
+                                                                                                                                                                           {-1, -1, -1, -1, -1, -1, -1, -1, 0},
+                                                                                                                                                                           {-1, 0, -1, 0, -1, -1, -1, -1, 0},
+                                                                                                                                                                           {-1, 0, -1, 0, -1, -1, -1, -1, 0},
+                                                                                                                                                                           {0, 0, 0, 1, 0, 0, 0, 0, 0},
+                                                                                                                                                                           {-1, -1, -1, 0, -1, -1, -1, -1, -1},
+                                                                                                                                                                           {-1, -1, -1, 0, -1, -1, -1, -1, -1},
+                                                                                                                                                                           {-1, -1, -1, -1, -1, -1, -1, -1, -1}
+                                                                                                                                                                       };
+
+                                                                                                                                                                       /**
+                                                                                                                                                                        * Grenouille quand tu ne joues pas
+                                                                                                                                                                        */
+                                                                                                                                                                       final static String GRENOUILLE_PASJOUE = OUI + "easter eggs 1/6 \n" + "\n"
+                                                                                                                                                                               + "TU JOUES PAS \n"
+                                                                                                                                                                               + "    /     \\\n"
+                                                                                                                                                                               + "      _(I)(I)_\n"
+                                                                                                                                                                               + "     ( _ .. _ )\n"
+                                                                                                                                                                               + "      `.`--'.'\n"
+                                                                                                                                                                               + "       )    (\n"
+                                                                                                                                                                               + "   ,-./      \\,-.\n"
+                                                                                                                                                                               + "  ( _( ||  || )_ ) hjw\n"
+                                                                                                                                                                               + " __\\ \\\\||--||'/ /__\n"
+                                                                                                                                                                               + " `-._//||\\/||\\\\_.-'\n"
+                                                                                                                                                                               + "      `--'`--'";
+                                                                                                                                                                       /**
+                                                                                                                                                                        * Fonction qui affiche la sortie du plateau
+                                                                                                                                                                        */
+                                                                                                                                                                       final static String AFFICHE = ""
+                                                                                                                                                                               + "███   ▄█ ▄███▄      ▄       ▄   ▄███▄      ▄     ▄   ▄███▄       ██▄   ██      ▄      ▄▄▄▄▄       █     ▄███▄     ▄▄▄▄▄       ███   ██   ▄█▄    █  █▀ █▄▄▄▄ ████▄ ████▄ █▀▄▀█     \n"
+                                                                                                                                                                               + "█  █  ██ █▀   ▀      █       █  █▀   ▀      █     █  █▀   ▀      █  █  █ █      █    █     ▀▄     █     █▀   ▀   █     ▀▄     █  █  █ █  █▀ ▀▄  █▄█   █  ▄▀ █   █ █   █ █ █ █     \n"
+                                                                                                                                                                               + "█ ▀ ▄ ██ ██▄▄    ██   █ █     █ ██▄▄    ██   █ █   █ ██▄▄        █   █ █▄▄█ ██   █ ▄  ▀▀▀▀▄       █     ██▄▄   ▄  ▀▀▀▀▄       █ ▀ ▄ █▄▄█ █   ▀  █▀▄   █▀▀▌  █   █ █   █ █ ▄ █     \n"
+                                                                                                                                                                               + "█  ▄▀ ▐█ █▄   ▄▀ █ █  █  █    █ █▄   ▄▀ █ █  █ █   █ █▄   ▄▀     █  █  █  █ █ █  █  ▀▄▄▄▄▀        ███▄  █▄   ▄▀ ▀▄▄▄▄▀        █  ▄▀ █  █ █▄  ▄▀ █  █  █  █  ▀████ ▀████ █   █     \n"
+                                                                                                                                                                               + "███    ▐ ▀███▀   █  █ █   █  █  ▀███▀   █  █ █ █▄ ▄█ ▀███▀       ███▀     █ █  █ █                    ▀ ▀███▀                 ███      █ ▀███▀    █     █                  █      \n"
+                                                                                                                                                                               + "                 █   ██    █▐           █   ██  ▀▀▀                      █  █   ██                                                    █          ▀     ▀                  ▀       \n"
+                                                                                                                                                                               + "                           ▐                                            ▀                                                            ▀                                            ";
+                                                                                                                                                                       /**
+                                                                                                                                                                        * Grenouille quand t'as perdu
+                                                                                                                                                                        */
+                                                                                                                                                                       final static String GRENOUILLE_ESTPERDU = OUI + "easter eggs  4/6 \n" + "\n"
+                                                                                                                                                                               + "TU ES ALLE.E TROP LOIN ? \n"
+                                                                                                                                                                               + "          .--._.--.\n"
+                                                                                                                                                                               + "          ( O     O )\n"
+                                                                                                                                                                               + "          /   . .   \\\n"
+                                                                                                                                                                               + "         .`._______.'.\n"
+                                                                                                                                                                               + "        /(           )\\\n"
+                                                                                                                                                                               + "      _/  \\  \\   /  /  \\_\n"
+                                                                                                                                                                               + "   .~   `  \\  \\ /  /  '   ~.\n"
+                                                                                                                                                                               + "  {    -.   \\  V  /   .-    }\n"
+                                                                                                                                                                               + "_ _`.    \\  |  |  |  /    .'_ _\n"
+                                                                                                                                                                               + ">_       _} |  |  | {_       _<\n"
+                                                                                                                                                                               + " /. - ~ ,_-'  .^.  `-_, ~ - .\\\n"
+                                                                                                                                                                               + "         '-'|/   \\|`-`\n"
+                                                                                                                                                                               + "TU AS QUITTE LE PLATEAU ET TU ES TOMBE.E ? \n";
+
+                                                                                                                                                                       /**
+                                                                                                                                                                        * Grenouille quand tu te tapes le mur
+                                                                                                                                                                        */
+                                                                                                                                                                       final static String GRENOUILLE_MUR = OUI + "easter eggs  3/6 \n" + "\n"
+                                                                                                                                                                               + "EH BEN ALORS, FAUT PAS SE PRENDRE LES MURS \n"
+                                                                                                                                                                               + "            _____________________\n"
+                                                                                                                                                                               + "            |###################|\n"
+                                                                                                                                                                               + "            |###################|\n"
+                                                                                                                                                                               + "            |###################|\n"
+                                                                                                                                                                               + "            |###################|\n"
+                                                                                                                                                                               + "((-----------------------------------------\n"
+                                                                                                                                                                               + "| \\         /  /@@ \\      /@@ \\  \\\n"
+                                                                                                                                                                               + " \\ \\,      /  (     )    (     )  \\            _____\n"
+                                                                                                                                                                               + "  \\ \\      |   \\___/      \\___/   |           /  __ \\\n"
+                                                                                                                                                                               + "   \\ \"\"*-__/                      \\           | |  | |\n"
+                                                                                                                                                                               + "    \"\"*-_                         \"-_         | |  \"\"\"\n"
+                                                                                                                                                                               + "         \\    -.  _________   .-   __\"-.__.-((  ))\n"
+                                                                                                                                                                               + "          \\,    \\^    U    ^/     /  \"-___--((  ))\n"
+                                                                                                                                                                               + "            \\,   \\         /    /'            | |\n"
+                                                                                                                                                                               + "             |    \\       /   /'              | |\n"
+                                                                                                                                                                               + "             |     \"-----\"    \\               | |\n"
+                                                                                                                                                                               + "            /                  \"*-._          | |\n"
+                                                                                                                                                                               + "           /   /\\          /*-._    \\         | |\n"
+                                                                                                                                                                               + "          /   /  \"\\______/\"     /   /         | |\n"
+                                                                                                                                                                               + "         /   /                 /   /          | |\n"
+                                                                                                                                                                               + "        /. ./                  |. .|          \"\"\"\n"
+                                                                                                                                                                               + "       /  | |                  / | \\\n"
+                                                                                                                                                                               + "      /   |  \\                /  |  \\\n"
+                                                                                                                                                                               + "     /.-./.-.|               /.-.|.-.\\ \n"
+                                                                                                                                                                               + "EH BEN ALORS, FAUT PAS SE PRENDRE LES MURS \n";
+
+                                                                                                                                                                       /**
+                                                                                                                                                                        * Grenouille quand tu gagnes
+                                                                                                                                                                        */
+                                                                                                                                                                       final static String GRENOUILLE_GAGNE = "VOUS AVEZ GAGNE! BRAVO \n"
+                                                                                                                                                                               + "       ____  __.---\"\"---.__  ____\n"
+                                                                                                                                                                               + "      /####\\/              \\/####\\\n"
+                                                                                                                                                                               + "     (   /\\ )              ( /\\   )\n"
+                                                                                                                                                                               + "      \\____/                \\____/\n"
+                                                                                                                                                                               + "    __/                          \\__\n"
+                                                                                                                                                                               + " .-\"    .                      .    \"-.\n"
+                                                                                                                                                                               + " |  |   \\.._                _../   |  |\n"
+                                                                                                                                                                               + "  \\  \\    \\.\"-.__________.-\"./    /  /\n"
+                                                                                                                                                                               + "    \\  \\    \"--.________.--\"    /  /\n"
+                                                                                                                                                                               + "  ___\\  \\_                    _/  /___\n"
+                                                                                                                                                                               + "./    )))))                  (((((    \\.\n"
+                                                                                                                                                                               + "\\                                      /\n"
+                                                                                                                                                                               + " \\           \\_          _/           /\n"
+                                                                                                                                                                               + "   \\    \\____/\"\"-.____.-\"\"\\____/    /\n"
+                                                                                                                                                                               + "     \\    \\                  /    /\n"
+                                                                                                                                                                               + "      \\.  .|                |.  ./\n"
+                                                                                                                                                                               + "    .\" / |  \\              /  | \\  \".\n"
+                                                                                                                                                                               + " .\"  /   |   \\            /   |   \\   \".\n"
+                                                                                                                                                                               + "/.-./.--.|.--.\\          /.--.|.--.\\.-.| \n"
+                                                                                                                                                                               + "VOUS AVEZ GAGNE! BRAVO \n";
+
+                                                                                                                                                                       /**
+                                                                                                                                                                        * Message perdu
+                                                                                                                                                                        */
+                                                                                                                                                                       final static String PERDU = OUI + "easter eggs 2/6 \n" + "\n"
+                                                                                                                                                                               + "$$$$$$$\\  $$$$$$$$\\ $$$$$$$\\  $$$$$$$\\  $$\\   $$\\ \n"
+                                                                                                                                                                               + "$$  __$$\\ $$  _____|$$  __$$\\ $$  __$$\\ $$ |  $$ |\n"
+                                                                                                                                                                               + "$$ |  $$ |$$ |      $$ |  $$ |$$ |  $$ |$$ |  $$ |\n"
+                                                                                                                                                                               + "$$$$$$$  |$$$$$\\    $$$$$$$  |$$ |  $$ |$$ |  $$ |\n"
+                                                                                                                                                                               + "$$  ____/ $$  __|   $$  __$$< $$ |  $$ |$$ |  $$ |\n"
+                                                                                                                                                                               + "$$ |      $$ |      $$ |  $$ |$$ |  $$ |$$ |  $$ |\n"
+                                                                                                                                                                               + "$$ |      $$$$$$$$\\ $$ |  $$ |$$$$$$$  |\\$$$$$$  |\n"
+                                                                                                                                                                               + "\\__|      \\________|\\__|  \\__|\\_______/  \\______/ \n"
+                                                                                                                                                                               + "                                                  \n"
+                                                                                                                                                                               + "                                                  \n"
+                                                                                                                                                                               + "                                                  ";
+
+                                                                                                                                                                       /**
+                                                                                                                                                                        * Grenouille quand tu manges la libellule
+                                                                                                                                                                        */
+                                                                                                                                                                       final static String GRENOUILLE_LIBELLULE = OUI + "easter eggs  5/6 \n" + "\n"
+                                                                                                                                                                               + "Bien mangé la libellule?"
+                                                                                                                                                                               + "          ,-.___.-.\n"
+                                                                                                                                                                               + "       ,-.(|)   (|),-.\n"
+                                                                                                                                                                               + "       \\_*._ ' '_.* _/\n"
+                                                                                                                                                                               + "        /`-.`--' .-'\\\n"
+                                                                                                                                                                               + "   ,--./    `---'    \\,--.\n"
+                                                                                                                                                                               + "   \\   |(  )     (  )|   /\n"
+                                                                                                                                                                               + "    \\  | ||       || |  /\n"
+                                                                                                                                                                               + "     \\ | /|\\     /|\\ | /\n"
+                                                                                                                                                                               + "     /  \\-._     _,-/  \\\n"
+                                                                                                                                                                               + "    //| \\\\  `---'  // |\\\\\n"
+                                                                                                                                                                               + "   /,-.,-.\\       /,-.,-.\\\n"
+                                                                                                                                                                               + "  o   o   o      o   o    o";
+                                                                                                                                                                       /**
+                                                                                                                                                                        * afficher grenouille 
+                                                                                                                                                                        */
+                                                                                                                                                                       final static String GRENOUILLE_ROND = OUI + "easter eggs 6/6\n" + "\n"
+                                                                                                                                                                               + "         o  o   o  o\n"
+                                                                                                                                                                               + "         |\\/ \\^/ \\/|\n"
+                                                                                                                                                                               + "         |,-------.|\n"
+                                                                                                                                                                               + "       ,-.(|)   (|),-.\n"
+                                                                                                                                                                               + "       \\_*._ ' '_.* _/\n"
+                                                                                                                                                                               + "        /`-.`--' .-'\\\n"
+                                                                                                                                                                               + "   ,--./    `---'    \\,--.\n"
+                                                                                                                                                                               + "   \\   |( )       ( )|   /\n"
+                                                                                                                                                                               + "    \\  ||M\\d8888b /M||  /\n"
+                                                                                                                                                                               + "     \\ |  ###MMMMA   | /\n"
+                                                                                                                                                                               + "     /  \\-vMM8888y,-/  \\\n"
+                                                                                                                                                                               + "    //| \\\\ QMyWWy  // |\\\\\n"
+                                                                                                                                                                               + "   /,-.,-.\\       /,-.,-.\\\n"
+                                                                                                                                                                               + "  o   o   o      o   o    o";
 
 }
