@@ -592,15 +592,19 @@ public class Backroom {
         boolean res = false;
         switch (car) {
             case 'h':
+            case 'H':
                 i--;
                 break;
             case 'b':
+            case 'B':
                 i++;
                 break;
             case 'g':
+            case 'G':
                 j--;
                 break;
             case 'd':
+            case 'D':
                 j++;
                 break;
             default:
