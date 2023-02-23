@@ -21,7 +21,7 @@ public class Backroom {
      * @return true pour lancer le jeu et false sinon
      */
     static boolean start() {
-        boolean demarrer = true;
+        boolean demarrer = false;
         return demarrer;
     }
     /**
