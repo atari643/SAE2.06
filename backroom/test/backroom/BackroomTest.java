@@ -13,7 +13,7 @@ import org.junit.Test;
 public class BackroomTest {
 
     @Test
-    public void tapeMur() {
+    public void tapeMurTest() {
         int[][] tabpartie = {{-1, -1, -1, -1, -1},
         {-1, -1, -1, -1, -1},
         {1, 0, 0, 2, -1},
@@ -30,7 +30,7 @@ public class BackroomTest {
     }
 
     @Test
-    public void estArrive() {
+    public void estArriveTest() {
         int[][] tabpartie = {{-1, -1, -1, -1, -1},
         {-1, -1, -1, -1, -1},
         {1, 0, 0, 2, -1},
@@ -47,7 +47,7 @@ public class BackroomTest {
     }
 
     @Test
-    public void estDansPlateau() {
+    public void estDansPlateauTest() {
 int[][] tabpartie = {{-1, -1, -1, -1, -1},
         {-1, -1, -1, -1, -1},
         {1, 0, 0, 2, -1},

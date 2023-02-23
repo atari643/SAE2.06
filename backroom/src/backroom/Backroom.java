@@ -256,12 +256,12 @@ public class Backroom {
                     Visualiser();
                     break;
                 case 8:
-                    System.out.println("Indice easter eaggs 1 : Ne joue pas");
-                    System.out.println("Indice easter eaggs 2 : L'arrivée est trop loin");
-                    System.out.println("Indice easter eaggs 3 : Berlin");
-                    System.out.println("Indice easter eaggs 4 : Va sur le banc");
-                    System.out.println("Indice easter eaggs 5 : `*\u00b4");
-                    System.out.println("Indice easter eaggs 6 : Touches directionnelles");
+                    System.out.println("Indice easter eggs 1 : Ne joue pas");
+                    System.out.println("Indice easter eggs 2 : L'arrivée est trop loin");
+                    System.out.println("Indice easter eggs 3 : Berlin");
+                    System.out.println("Indice easter eggs 4 : Va sur le banc");
+                    System.out.println("Indice easter eggs 5 : `*\u00b4");
+                    System.out.println("Indice easter eggs 6 : Touches directionnelles");
                     break;
                 case 9:
                     break;
@@ -292,9 +292,9 @@ public class Backroom {
     }
 
     /**
-     * Demande de saisir un nombre valide pour lancer un jeu ou quitter (1-6)
+     * Demande de saisir un nombre valide pour lancer un jeu ou quitter (2-9)
      *
-     * @param min jeu numéro 1
+     * @param min jeu numéro 2
      * @param max boutton quitter
      * @return le numéro saisi pour le jeu ou quitter
      */
@@ -416,7 +416,7 @@ public class Backroom {
     }
 
     /**
-     * Permet de crée un plateau pour le niveau 6
+     * Permet de créer un plateau pour le niveau 6
      */
     void creerPlateauNiveau6() {
         StringBuilder plateau = new StringBuilder();
@@ -490,7 +490,7 @@ public class Backroom {
     
 
     /**
-     * Mets à jour tous les délacements dans le tableau et d'afficher les
+     * Met à jour tous les délacements dans le tableau et affiche les
      * plateaux
      */
     void update() {
@@ -615,7 +615,7 @@ public class Backroom {
     }
 
     /**
-     * Mets un temps entre chaque affichage du plateau
+     * Met un temps entre chaque affichage du plateau
      */
     public static void attendre() {
         int time = 750;
@@ -643,17 +643,19 @@ public class Backroom {
                                                                                                                                                                         /**
                                                                                                                                                                          * Affiche un message
                                                                                                                                                                          */ 
-                                                                                                                                                                        final static String OUI = "$$$$$$$$\\  $$$$$$\\   $$$$$$\\ $$$$$$$$\\ $$$$$$$$\\ $$$$$$$\\        $$$$$$$$\\  $$$$$$\\   $$$$$$\\   $$$$$$\\   $$$$$$\\  \n"
-                                                                                                                                                                                + "$$  _____|$$  __$$\\ $$  __$$\\\\__$$  __|$$  _____|$$  __$$\\       $$  _____|$$  __$$\\ $$  __$$\\ $$  __$$\\ $$  __$$\\ \n"
-                                                                                                                                                                                + "$$ |      $$ /  $$ |$$ /  \\__|  $$ |   $$ |      $$ |  $$ |      $$ |      $$ /  $$ |$$ /  \\__|$$ /  \\__|$$ /  \\__|\n"
-                                                                                                                                                                                + "$$$$$\\    $$$$$$$$ |\\$$$$$$\\    $$ |   $$$$$\\    $$$$$$$  |      $$$$$\\    $$$$$$$$ |$$ |$$$$\\ $$ |$$$$\\ \\$$$$$$\\  \n"
-                                                                                                                                                                                + "$$  __|   $$  __$$ | \\____$$\\   $$ |   $$  __|   $$  __$$<       $$  __|   $$  __$$ |$$ |\\_$$ |$$ |\\_$$ | \\____$$\\ \n"
-                                                                                                                                                                                + "$$ |      $$ |  $$ |$$\\   $$ |  $$ |   $$ |      $$ |  $$ |      $$ |      $$ |  $$ |$$ |  $$ |$$ |  $$ |$$\\   $$ |\n"
-                                                                                                                                                                                + "$$$$$$$$\\ $$ |  $$ |\\$$$$$$  |  $$ |   $$$$$$$$\\ $$ |  $$ |      $$$$$$$$\\ $$ |  $$ |\\$$$$$$  |\\$$$$$$  |\\$$$$$$  |\n"
-                                                                                                                                                                                + "\\________|\\__|  \\__| \\______/   \\__|   \\________|\\__|  \\__|      \\________|\\__|  \\__| \\______/  \\______/  \\______/ \n"
-                                                                                                                                                                                + "                                                                                                                   \n"
-                                                                                                                                                                                + "                                                                                                                   \n"
-                                                                                                                                                                                + "                                                                                                                   \n";
+                                                                                                                                                                        final static String OUI = 
+                                                                                                                                                                                "$$$$$$$$\\  $$$$$$\\   $$$$$$\\ $$$$$$$$\\ $$$$$$$$\\ $$$$$$$\\        $$$$$$$$\\  $$$$$$\\   $$$$$$\\   $$$$$$\\  \n"
+                                                                                                                                                                                + "$$  _____|$$  __$$\\ $$  __$$\\\\__$$  __|$$  _____|$$  __$$\\       $$  _____|$$  __$$\\ $$  __$$\\ $$  __$$\\ \n"
+                                                                                                                                                                                + "$$ |      $$ /  $$ |$$ /  \\__|  $$ |   $$ |      $$ |  $$ |      $$ |      $$ /  \\__|$$ /  \\__|$$ /  \\__|\n"
+                                                                                                                                                                                + "$$$$$\\    $$$$$$$$ |\\$$$$$$\\    $$ |   $$$$$\\    $$$$$$$  |      $$$$$\\    $$ |$$$$\\ $$ |$$$$\\ \\$$$$$$\\  \n"
+                                                                                                                                                                                + "$$  __|   $$  __$$ | \\____$$\\   $$ |   $$  __|   $$  __$$<       $$  __|   $$ |\\_$$ |$$ |\\_$$ | \\____$$\\ \n"
+                                                                                                                                                                                + "$$ |      $$ |  $$ |$$\\   $$ |  $$ |   $$ |      $$ |  $$ |      $$ |      $$ |  $$ |$$ |  $$ |$$\\   $$ |\n"
+                                                                                                                                                                                + "$$$$$$$$\\ $$ |  $$ |\\$$$$$$  |  $$ |   $$$$$$$$\\ $$ |  $$ |      $$$$$$$$\\ \\$$$$$$  |\\$$$$$$  |\\$$$$$$  |\n"
+                                                                                                                                                                                + "\\________|\\__|  \\__| \\______/   \\__|   \\________|\\__|  \\__|      \\________| \\______/  \\______/  \\______/ \n"
+                                                                                                                                                                                + "                                                                                                         \n"
+                                                                                                                                                                                + "                                                                                                         \n"
+                                                                                                                                                                                + "                                                                                                         \n";
+
                                                                                                                                                                         /**
                                                                                                                                                                         * Tableau du niveau 6
                                                                                                                                                                         */
