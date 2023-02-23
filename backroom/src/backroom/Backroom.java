@@ -21,7 +21,7 @@ public class Backroom {
      * @return true pour lancer le jeu et false sinon
      */
     static boolean start() {
-        boolean demarrer = false;
+        boolean demarrer = true;
         return demarrer;
     }
     /**
@@ -288,15 +288,19 @@ public class Backroom {
         boolean res = false;
         switch (car) {
             case 'h':
+            case 'H':
                 i--;
                 break;
             case 'b':
+            case 'B':
                 i++;
                 break;
             case 'g':
+            case 'G':
                 j--;
                 break;
             case 'd':
+            case 'D':
                 j++;
                 break;
             default:
@@ -310,20 +314,21 @@ public class Backroom {
     }
 
 
+
     /**
      * Permet de visualiser tous les plateaux
      */
     static void Visualiser() {
-        System.out.println("Plateau niveau 2");
+        System.out.println("Plateau niveau 2 \n");
         Backroom back2 = new Backroom(tabNiv2);
         back2.creerPlateau();
-        System.out.println("Plateau niveau 3");
+        System.out.println("Plateau niveau 3 \n");
         Backroom back3 = new Backroom(tabNiv3);
         back3.creerPlateau();
-        System.out.println("Plateau niveau 4");
+        System.out.println("Plateau niveau 4 \n");
         Backroom back4 = new Backroom(tabNiv4);
         back4.creerPlateau();
-        System.out.println("Plateau niveau 5");
+        System.out.println("Plateau niveau 5 \n");
         Backroom back5 = new Backroom(tabNiv5);
         back5.creerPlateau();
     }
@@ -750,7 +755,7 @@ public class Backroom {
                                                                                                                                                                                + ">_       _} |  |  | {_       _<\n"
                                                                                                                                                                                + " /. - ~ ,_-'  .^.  `-_, ~ - .\\\n"
                                                                                                                                                                                + "         '-'|/   \\|`-`\n"
-                                                                                                                                                                               + "TU AS QUITTE(E) LE PLATEAU ET TU ES TOMBE(E) ? \n";
+                                                                                                                                                                               + "TU AS QUITTE LE PLATEAU ET TU ES TOMBE.E ? \n";
 
                                                                                                                                                                        /**
                                                                                                                                                                         * Grenouille quand tu te tapes le mur
